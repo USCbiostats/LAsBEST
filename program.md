@@ -79,11 +79,11 @@ Intro to R +---- GitHub: 12-1pm Tues Jun 8^th^.
 |               |               |   \[??\][^tbd]|               |               |               |    
 +---------------+---------------+---------------+---------------+---------------+---------------+
 |     **3**     |     > **Spati |     10a: MM   |     Logistic  |               |     Intro to  |    
-|               |     al**      |     \[Fatimat |     Regressio |               |     Spatial   |    
-|     **6/28**  |               |     a\][^tbd]       |     n         |               |     Data &    |    
+|               |     al**      |   \[??\][^tbd]|     Regressio |               |     Spatial   |    
+|     **6/28**  |               |               |     n         |               |     Data &    |    
 |               |               |               |               |               |     GIS       |    
 |               |               |     Guest:    |   \[??\][^tbd]|               |   \[??\][^tbd]|    
-|               |               |     \[TBD\][^tbd]   |               |               |               |    
+|               |               | \[TBD\][^tbd] |               |               |               |    
 |               |               |               |     **LUNCH   |               |     **LUNCH   |    
 |               |               |               |     BREAK**   |               |     BREAK**   |    
 |               |               |     A: Share  |               |               |               |    
@@ -127,7 +127,7 @@ Intro to R +---- GitHub: 12-1pm Tues Jun 8^th^.
 |               |               |               |               |               |     Friday    |    
 +---------------+---------------+---------------+---------------+---------------+---------------+
 |     **5**     |     > **Data  |     MM        |     Classific |               |     Sign-up   |    
-|               |     > Science |     \[??\][^tbd]      |     ation     |               |     for       |    
+|               |     > Science | \[??\][^tbd]  |     ation     |               |     for       |    
 |     **7/12**  |     **        |               |               |               |               |    
 |               |               |               |     Training/ |               |     Practice  |    
 |               |               |     Guest:    |     Testing   |               |     interview |    
@@ -137,10 +137,10 @@ Intro to R +---- GitHub: 12-1pm Tues Jun 8^th^.
 |               |               |     Principal |     **LUNCH   |               |               |    
 |               |               |     Component |     BREAK**   |               |     **LUNCH   |    
 |               |               |     Analysis  |               |               |     BREAK**   |    
-|               |               |    \[??\][^tbd]  |     1p:        |               |               |    
+|               |               |  \[??\][^tbd] |     1p:       |               |               |    
 |               |               |               |     3-minute  |               |     1p:       |    
-|               |               |     **LUNCH   |     elevator  |               |     Racism in |    
-|               |               |     BREAK**   |   pitch\[??\][^tbd] |               |     ML\[??\][^tbd]|    
+|               |               |     **LUNCH   | elevator pitch|               |     Racism in |    
+|               |               |     BREAK**   |  \[??\][^tbd] |               |  L\[??\][^tbd]|    
 |               |               |               |               |               |               |    
 |               |               |     Faculty   |     A: Make   |               |     Share     |    
 |               |               |     Review    |     slides    |               |     Oral      |    
