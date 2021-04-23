@@ -29,7 +29,7 @@ jobs:
         with:
           r-version: '4.0.2' # The R version to download (if necessary) and use.
       
-      - run: sudo apt install r-cran-rmarkdown
+      - run: Rscript -e 'utils::install.packages("rmarkdown)'
       - run: Rscript -e 'rmarkdown::render_site("site/")'
       
       - name: Deploy
