@@ -1,0 +1,4 @@
+name: "las-best"
+exclude: ["*.ppt*", "*.doc*", "*.pdf"]
+navbar:
+  title: "LA's BEST@USC"
