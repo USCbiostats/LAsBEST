@@ -29,6 +29,10 @@ jobs:
         with:
           r-version: '4.0.2' # The R version to download (if necessary) and use.
       
+      - uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.7.3'
+      
       - run: Rscript -e 'utils::install.packages("rmarkdown")'
       - run: Rscript -e 'rmarkdown::render_site("site/")'
       
