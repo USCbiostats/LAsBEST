@@ -3,181 +3,166 @@
 This is the current version of LA's BEST \@ USC curriculum. The final version will
 be confirmed as soon as possible.
 
-2 Orientation/Weekly activities to get to know each other: 12-1pm, Tues
-May 25 (entrance survey) & Jun 1.
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Table I. Proposed 6 -week LA’s BEST @USC Curriculum</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Week</strong></td>
+<td></td>
+<td><strong>Mon</strong></td>
+<td><strong>Tues</strong></td>
+<td></td>
+<td><strong>Thurs</strong></td>
+</tr>
+<tr class="odd">
+<td><p><strong>1</strong></p>
+<p><strong>6/14</strong></p></td>
+<td><blockquote>
+<p><strong>Descriptive</strong></p>
+</blockquote></td>
+<td><p>10a: Mindfulness Monday [TBD]</p>
+<p>Intro Biostats [TBD]</p>
+<p>11a: Ethics[??]</p>
+<p><strong>12-1p LUNCH BREAK</strong></p>
+<p>1-3p: CHS Guest [??]</p>
+<p>Discuss publication + press release/senate committee [TBD]</p></td>
+<td><p>10a: How to Develop a Research Question</p>
+<p>11a: Introduce: DAG/</p>
+<p>Causal inference [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: Descriptive Statistics [TBD]</p>
+<p>2p: <strong>Distribute Data set</strong></p>
+<p>Create Table 1</p></td>
+<td></td>
+<td><p>10a: Population Sampling/</p>
+<p>Estimation [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: <strong>Confounding</strong></p>
+<p>Post Table 1 on Slack by</p>
+<p>midnight Friday</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>2</strong></p>
+<p><strong>6/21</strong></p></td>
+<td><blockquote>
+<p><strong>Multivariable</strong></p>
+</blockquote></td>
+<td><p>10a: MM [TBD]</p>
+<p>Guest:[TBD]</p>
+<p>&lt;11a: OPEN/disc. article&gt;</p>
+<p>[TBD]</p>
+<p><strong>12-1p: LUNCH BREAK</strong></p>
+<p>1p: Hypothesis Testing</p>
+<p>2-sample tests [TBD]</p></td>
+<td><p>Introduction To Linear Regression</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: Organizational Time Management [??]</p>
+<p>2p: Linear Regression activity</p></td>
+<td></td>
+<td><p>Multiple Linear Regression/Model Building</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>A: Model building in CHS</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>3</strong></p>
+<p><strong>6/28</strong></p></td>
+<td><blockquote>
+<p><strong>Spatial</strong></p>
+</blockquote></td>
+<td><p>10a: MM [TBD]</p>
+<p>Guest:[TBD]</p>
+<p>A: Share CHS models</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>A: Refine Models</p></td>
+<td><p>Logistic Regression</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>A: LR in CHS</p></td>
+<td></td>
+<td><p>Intro to Spatial Data &amp; GIS [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: Poster Presentation Written [TBD]</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>4</strong></p>
+<p><strong>7/5</strong></p></td>
+<td><blockquote>
+<p><strong>GWAS</strong></p>
+</blockquote></td>
+<td><p><strong>USC</strong></p>
+<p><strong>HOLIDAY</strong></p></td>
+<td><p>Visualizing Spatial Data</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>A: Maps of CHS data</p>
+<p>2p: Getting into Grad School [TBD]</p></td>
+<td></td>
+<td><p>Intro to SNPs/ Population Structure [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: GUEST: [TBD]</p>
+<p>A: Layout Posters [TBD]</p>
+<p>Posters on Slack by midnight Friday</p></td>
+</tr>
+<tr class="odd">
+<td><p><strong>5</strong></p>
+<p><strong>7/12</strong></p></td>
+<td><blockquote>
+<p><strong>Data Science</strong></p>
+</blockquote></td>
+<td><p>MM [TBD]</p>
+<p>Guest:[TBD]</p>
+<p>Principal Component Analysis [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>Faculty Review Posters</p>
+<p>[TBD]</p>
+<p>A: Revise Posters</p></td>
+<td><p>Classification</p>
+<p>Training/Testing</p>
+<p>[TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: 3-minute elevator pitch[TBD] A: Make slides for video present</p></td>
+<td></td>
+<td><p>Sign-up for</p>
+<p>Practice interview</p>
+<p>&lt;optional&gt;</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>1p: Racism in ML [TBD]</p>
+<p>Share Oral Project Presentation</p>
+<p>[TBD]</p></td>
+</tr>
+<tr class="even">
+<td><p><strong>6</strong></p>
+<p><strong>7/19</strong></p></td>
+<td><blockquote>
+<p><strong>Networking</strong></p>
+</blockquote></td>
+<td><p>MM [TBD]</p>
+<p>Career Day</p>
+<p>TBD</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>Record Oral Presentations</p></td>
+<td><p>Speakers [TBD]</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>Social Media [??]</p>
+<p>Writing a LinkedIn Profile</p></td>
+<td></td>
+<td><p>Online</p>
+<p>Poster Session</p>
+<p>(Slack)</p>
+<p><strong>LUNCH BREAK</strong></p>
+<p>Exit Survey</p>
+<p>&lt;Awards ceremony&gt;</p></td>
+</tr>
+</tbody>
+</table>
 
-Intro to R +---- GitHub: 12-1pm Tues Jun 8^th^.
-
-6-week, 3days/week, 2 credit course: 1:25/day contact time (lecture) +----
-2:50/day homework/activity/practice
-
-
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **Week**  |               |     **Mon**   |     **Tues**  |               |     **Thurs** |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **1**     |     > **Descr |     10a:      |     10a: How  |               |     10a:      |    
-|               |     iptive**  |     Mindfulne |     to        |               |     Populatio |    
-|     **6/14**  |               |     ss        |     Develop a |               |     n         |    
-|               |               |     Monday    |     Research  |               |     Sampling/ |    
-|               |               |   \[??\][^tbd]|     Question  |               |               |    
-|               |               |               |               |               |     Estimatio |    
-|               |               |               |     11a:      |               |     n         |    
-|               |               |     Intro     |     Introduce |               |   \[??\][^tbd]|    
-|               |               |     Biostats  |     :         |               |               |    
-|               |               |   \[??\][^tbd]|     DAG/      |               |     **LUNCH   |    
-|               |               |               |               |               |     BREAK**   |    
-|               |               |     11a:      |     Causal    |               |               |    
-|               |               |     Ethics    |     inference |               |     1p:       |    
-|               |               |   \[??\][^tbd]|   \[??\][^tbd]|               |     **Confoun |    
-|               |               |               |               |               |     ding**    |    
-|               |               |     **12-1p   |     **LUNCH   |               |               |    
-|               |               |     LUNCH     |     BREAK**   |               |     Post      |    
-|               |               |     BREAK**   |               |               |     Table 1   |    
-|               |               |               |     1p:       |               |     on Slack  |    
-|               |               |     1-3p: CHS |     Descripti |               |     by        |    
-|               |               |     Guest     |     ve        |               |               |    
-|               |               |   \[??\][^tbd]|     Statistic |               |     midnight  |    
-|               |               |               |     s         |               |     Friday    |    
-|               |               |     Discuss   |   \[??\][^tbd]|               |               |    
-|               |               |     publicati |               |               |               |    
-|               |               |     on        |     2p:       |               |               |    
-|               |               |     + press   |     **Distrib |               |               |    
-|               |               |     release/s |     ute       |               |               |    
-|               |               |     enate     |     Data      |               |               |    
-|               |               |     committee |     set**     |               |               |    
-|               |               |   \[??\][^tbd]|               |               |               |    
-|               |               |               |     Create    |               |               |    
-|               |               |               |     Table 1   |               |               |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **2**     |     > **Multi |     10a: MM   |     Introduct |               |     Multiple  |    
-|               |     variable* |   \[??\][^tbd]|     ion       |               |     Linear    |    
-|     **6/21**  |     *         |               |     To Linear |               |     Regressio |    
-|               |               |               |     Regressio |               |     n/Model   |    
-|               |               |     Guest:    |     n         |               |     Building  |    
-|               |               |   \[??\][^tbd]|               |               |               |    
-|               |               |               |   \[??\][^tbd]|               |   \[??\][^tbd]|    
-|               |               |               |               |               |               |    
-|               |               |     \<11a:    |     **LUNCH   |               |     **LUNCH   |    
-|               |               |     OPEN/disc |     BREAK**   |               |     BREAK**   |    
-|               |               |     .         |               |               |               |    
-|               |               |     article\> |     1p:       |               |     A: Model  |    
-|               |               |               |     Organizat |               |     building  |    
-|               |               |   \[??\][^tbd]|     ional     |               |     in CHS    |    
-|               |               |               |     Time      |               |               |    
-|               |               |               |     Managemen |               |               |    
-|               |               |     **12-1p:  |     t         |               |               |    
-|               |               |     LUNCH     |   \[??\][^tbd]|               |               |    
-|               |               |     BREAK**   |               |               |               |    
-|               |               |               |     2p:       |               |               |    
-|               |               |     1p:       |     Linear    |               |               |    
-|               |               |     Hypothesi |     Regressio |               |               |    
-|               |               |     s         |     n         |               |               |    
-|               |               |     Testing   |     activity  |               |               |    
-|               |               |               |               |               |               |    
-|               |               |     2-sample  |               |               |               |    
-|               |               |     tests     |               |               |               |    
-|               |               |   \[??\][^tbd]|               |               |               |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **3**     |     > **Spati |     10a: MM   |     Logistic  |               |     Intro to  |    
-|               |     al**      |   \[??\][^tbd]|     Regressio |               |     Spatial   |    
-|     **6/28**  |               |               |     n         |               |     Data &    |    
-|               |               |               |               |               |     GIS       |    
-|               |               |     Guest:    |   \[??\][^tbd]|               |   \[??\][^tbd]|    
-|               |               | \[TBD\][^tbd] |               |               |               |    
-|               |               |               |     **LUNCH   |               |     **LUNCH   |    
-|               |               |               |     BREAK**   |               |     BREAK**   |    
-|               |               |     A: Share  |               |               |               |    
-|               |               |     CHS       |     A: LR in  |               |     1p:       |    
-|               |               |     models    |     CHS       |               |     Poster    |    
-|               |               |               |               |               |     Presentat |    
-|               |               |   \[??\][^tbd]|               |               |     ion       |    
-|               |               |               |               |               |     Written   |    
-|               |               |               |               |               |   \[??\][^tbd]|    
-|               |               |               |               |               |               |    
-|               |               |     **LUNCH   |               |               |               |    
-|               |               |     BREAK**   |               |               |               |    
-|               |               |               |               |               |               |    
-|               |               |     A: Refine |               |               |               |    
-|               |               |     Models    |               |               |               |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **4**     |     > **GWAS* |     **USC**   |     Visualizi |               |     Intro to  |    
-|               |     *         |               |     ng        |               |     SNPs/     |    
-|     **7/5**   |               |     **HOLIDAY |     Spatial   |               |     Populatio |    
-|               |               |     **        |     Data      |               |     n         |    
-|               |               |               |               |               |     Structure |    
-|               |               |               |   \[??\][^tbd]|               |   \[??\][^tbd]|    
-|               |               |               |               |               |               |    
-|               |               |               |     **LUNCH   |               |     **LUNCH   |    
-|               |               |               |     BREAK**   |               |     BREAK**   |    
-|               |               |               |               |               |               |    
-|               |               |               |     A: Maps   |               |     1p:       |    
-|               |               |               |     of CHS    |               |     GUEST:    |    
-|               |               |               |     data      |               |               |    
-|               |               |               |               |               | \[??\][^tbd]  |    
-|               |               |               |     2p:       |               |               |    
-|               |               |               |     Getting   |               |     A: Layout |    
-|               |               |               |     into Grad |               |     Posters   |    
-|               |               |               |     School    |               |   \[??\][^tbd]|    
-|               |               |               |   \[??\][^tbd]|               |               |    
-|               |               |               |               |               |               |    
-|               |               |               |               |               |     Posters   |    
-|               |               |               |               |               |     on Slack  |    
-|               |               |               |               |               |     by        |    
-|               |               |               |               |               |     midnight  |    
-|               |               |               |               |               |     Friday    |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **5**     |     > **Data  |     MM        |     Classific |               |     Sign-up   |    
-|               |     > Science | \[??\][^tbd]  |     ation     |               |     for       |    
-|     **7/12**  |     **        |               |               |               |               |    
-|               |               |               |     Training/ |               |     Practice  |    
-|               |               |     Guest:    |     Testing   |               |     interview |    
-|               |               |  \[??\][^tbd] |               |               |               |    
-|               |               |               |   \[??\][^tbd]|               |  \<optional\> |    
-|               |               |               |               |               |               |    
-|               |               |     Principal |     **LUNCH   |               |               |    
-|               |               |     Component |     BREAK**   |               |     **LUNCH   |    
-|               |               |     Analysis  |               |               |     BREAK**   |    
-|               |               |  \[??\][^tbd] |     1p:       |               |               |    
-|               |               |               |     3-minute  |               |     1p:       |    
-|               |               |     **LUNCH   | elevator pitch|               |     Racism in |    
-|               |               |     BREAK**   |  \[??\][^tbd] |               |  L\[??\][^tbd]|    
-|               |               |               |               |               |               |    
-|               |               |     Faculty   |     A: Make   |               |     Share     |    
-|               |               |     Review    |     slides    |               |     Oral      |    
-|               |               |     Posters   |     for video |               |     Project   |    
-|               |               |               |     present   |               |     Presentat |    
-|               |               |   \[??\][^tbd]|               |               |     ion       |    
-|               |               |               |               |               |               |    
-|               |               |               |               |               |   \[??\][^tbd]|    
-|               |               |     A: Revise |               |               |               |    
-|               |               |     Posters   |               |               |               |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-|     **6**     |     > **Netwo |     MM        |     Jet       |               |     Online    |    
-|               |     rking**   |   \[??\][^tbd]|     Propulsio |               |               |    
-|     **7/19**  |               |               |     n         |               |     Poster    |    
-|               |               |               |     Lab       |               |     Session   |    
-|               |               |     Career    |   \[??\][^tbd]|               |               |    
-|               |               |     Day       |               |               |     (Slack)   |    
-|               |               |               |     Kaiser    |               |               |    
-|               |               |     RAND Corp |     Permanent |               |     **LUNCH   |    
-|               |               |     \[MS:PhD\ |     e         |               |     BREAK**   |    
-|               |               |     ]         |   \[??\][^tbd]|               |               |    
-|               |               |               |               |               |     Exit      |    
-|               |               |     Amgen     |   \[??\][^tbd]|               |     Survey    |    
-|               |               |     Internshi |               |               |               |    
-|               |               |     p         |               |               |     \<Awards  |    
-|               |               |     opportuni |               |               |     ceremony\ |    
-|               |               |     ties      |               |               |     >         |    
-|               |               |               |     **LUNCH   |               |               |    
-|               |               |     **LUNCH   |     BREAK**   |               |               |    
-|               |               |     BREAK**   |               |               |               |    
-|               |               |               |     Social    |               |               |    
-|               |               |     Record    |     Media     |               |               |    
-|               |               |     Oral      |   \[??\][^tbd]|               |               |    
-|               |               |     Presentat |               |               |               |    
-|               |               |     ions      |     Writing a |               |               |    
-|               |               |               |     LinkedIn  |               |               |    
-|               |               |               |     Profile   |               |               |    
-|---------------|---------------|---------------|---------------|---------------|---------------|
-
-[^tbd]: To be disclosed.
