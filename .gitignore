@@ -40,3 +40,5 @@ vignettes/*.pdf
 
 # Other files
 *.docx
+
+site/

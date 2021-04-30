@@ -5,6 +5,11 @@ be confirmed as soon as possible.
 
 ```{r curriculum, echo = FALSE}
 dat <- read.csv("../curriculum.csv")
+dat[[1]] <- sprintf(
+  "[%s](week%02i.html)",
+  dat[[1]],
+  as.integer(gsub("^\\s*([0-9]+)\\s+.+", "\\1", dat[[1]]))
+  )
 options(knitr.kable.NA = '-')
 knitr::kable(dat)
 ```
