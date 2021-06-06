@@ -1,6 +1,6 @@
 Week,Theme,Mon,Tues,Thurs
 1 (6/14),**Descriptive**,,,
-,10 AM,Mindfulness Monday (MM) [**FS**],,Population Sampling/Estimation [JPL]
+,10 AM,Mindfulness Monday (MM) [FS] Intro to Biostats [SE],How to Develop a Research Question [SE],Population Sampling/Estimation [JPL]
 ,11 AM,,Introduce: DAG/Causal inference [EG],
 ,Lunch break,,,
 ,1 PM,,Descriptive Statistics [JPL],Confounding
@@ -9,13 +9,13 @@ Week,Theme,Mon,Tues,Thurs
 ,10 AM,MM [FS],Introduction To Linear Regression [TP],Multiple Linear Regression/Model Building [TP]
 ,11 AM,,,
 ,Lunch break,w/grad students,,
-,1 PM,Hypothesis Testing,,A: Model building in CHS [Tas]
+,1 PM,Hypothesis Testing,,A: Model building in CHS [TAs]
 ,2 PM,2-sample tests [KS],,
 3 (6/28),**Spatial**,,,
-,10 AM,"MM [FS], Guest: Claradina Soto",Logistic Regression [JPL],Intro to Spatial Data & GIS[MF]
-,11 AM,A: Share CHS models,A: LR in CHS,
+,10 AM,"MM [FS], Guest: Claradina Soto",Presentations [CPS],Intro to Spatial Data & GIS[MF]
+,11 AM,A: Share CHS models,Logistic Regression [JPL],
 ,Lunch break,,,
-,1 PM,A: Refine Models [TAs],,"A: GIS [MF,MW,TAs]"
+,1 PM,A: Refine Models [TAs],A: LR in CHS ,"A: GIS [MF,MW,TAs]"
 ,2 PM,,,
 4 (7/5),**GWAS**,,,
 ,10 AM,**USC HOLIDAY**,Visualizing Spatial Data [MF],Intro to SNPs/Population Structure [NM]
@@ -30,7 +30,7 @@ Week,Theme,Mon,Tues,Thurs
 ,1 PM,"Faculty Review Posters [JG,KS,JPL]",Racism in ML [KS],Share Oral Project Presentation
 ,2 PM,A: Revise Posters,,
 6 (7/19),**Networking**,,,
-,10 AM,,,
+,10 AM,Record Oral Presentations, ,
 ,11 AM,,,
 ,Lunch break,,,
 ,1 PM,,,
