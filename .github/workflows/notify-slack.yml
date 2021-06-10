@@ -1,0 +1,15 @@
+on: push
+name: Notify LAs Best Slack
+jobs:
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      if: ${{ contains(github.event.head_commit.message, '[slack]') }}
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
