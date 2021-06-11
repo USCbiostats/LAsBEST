@@ -1,6 +1,6 @@
 on:
   schedule:
-    cron: '0-59/30 0-23 * * *' # Every half hour
+    - cron: '0-59/30 0-23 * * *' # Every half hour
 
 env:
   cntr: uscbiostats/lasbest-gdrive:latest
