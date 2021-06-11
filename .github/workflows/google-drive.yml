@@ -23,8 +23,10 @@ jobs:
           docker run --rm -i -v$(pwd):/gdrive/ \
             -e GD_TOKEN='${{ secrets.GD_TOKEN }}' \
             -e GD_DRIVE_PATH='${{ secrets.GD_DRIVE_PATH }}' \
-            ${cntr} ./rcloneish.sh copy mydrive: /gdrive/gd
+            ${cntr} ./rcloneish.sh copy mydrive: /gdrive/google-drive
 
-      - name: List files
-        run: ls -R
+      - name: Adding the files
+        run: |
+          git add google-drive/
+          git commit -a -m "Updating Google Drive"
 
