@@ -18,8 +18,11 @@ jobs:
         run: docker pull ${cntr}
 
       - name: Download
-        run: docker run --rm -i -v$(pwd):/gdrive/ -e GD_TOKEN=${GD_TOKEN} -e GD_DRIVE_PATH=${GD_DRIVE_PATH} ${cntr} ./rcloneish.sh copy  mydrive: /gdrive/gd
+        run: |
+          docker run --rm -i -v$(pwd):/gdrive/ \
+            -e GD_TOKEN=${GD_TOKEN} \
+            -e GD_DRIVE_PATH=${GD_DRIVE_PATH} ${cntr} ./rcloneish.sh copy mydrive: /gdrive/gd
 
       - name: List files
-        run ls -R
+        run: ls -R
 ~
