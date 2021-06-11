@@ -1,3 +1,4 @@
+name: Google Drive data
 on:
   schedule:
     - cron: '0-59/30 0-23 * * *' # Every half hour
