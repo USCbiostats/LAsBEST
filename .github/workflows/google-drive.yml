@@ -1,5 +1,7 @@
 name: Google Drive data
 on:
+  push:
+    branches: [master]
   schedule:
     - cron: '0-59/30 0-23 * * *' # Every half hour
 
