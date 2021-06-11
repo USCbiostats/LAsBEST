@@ -1,0 +1,4 @@
+[mydrive]
+type = drive
+config_is_local = false
+root_folder_id =

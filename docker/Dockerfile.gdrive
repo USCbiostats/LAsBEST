@@ -1,9 +1,14 @@
-FROM rocker/r-base:latest
+FROM r-base:latest
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+        pandoc r-cran-rmarkdown rsync 
 
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
-	libssl-dev libcurl4-openssl-dev
+RUN apt-get install curl && curl https://rclone.org/install.sh | bash
 
-RUN Rscript -e 'utils::install.packages("googledrive")'
+COPY rclone.config.template /root/.config/rclone/rclone.conf
+
+COPY reader.R /root/reader.R
+COPY rcloneish.sh .
+RUN chmod +x rcloneish.sh
 
 CMD ["bash"]

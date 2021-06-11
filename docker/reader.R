@@ -1,4 +1,4 @@
-downloader <- function(id) {
+reader <- function(id) {
   if (inherits(id, "character"))
     id <-
       googledrive::drive_ls(googledrive::drive_get(id = id))
