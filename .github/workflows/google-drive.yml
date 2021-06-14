@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 * * * *' # Every hour from 
+    - cron: '0-59/30 * * * *' # Every hour from 
 
 env:
   cntr: uscbiostats/lasbest-gdrive:latest
