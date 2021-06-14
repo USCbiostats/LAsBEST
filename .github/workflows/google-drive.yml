@@ -1,11 +1,12 @@
+name: Google Drive data
 on:
+  push:
+    branches: [main]
   schedule:
-    cron: '0-59/30 0-23 * * *' # Every half hour
+    - cron: '0 * * * *' # Every hour from 
 
 env:
   cntr: uscbiostats/lasbest-gdrive:latest
-  GD_TOKEN: ${{ secrets.GD_TOKEN }}
-  GD_DRIVE_PATH: ${{ secrets.GD_DRIVE_PATH }}
 
 jobs:
   download-drive:
@@ -18,8 +19,18 @@ jobs:
         run: docker pull ${cntr}
 
       - name: Download
-        run: docker run --rm -i -v$(pwd):/gdrive/ -e GD_TOKEN=${GD_TOKEN} -e GD_DRIVE_PATH=${GD_DRIVE_PATH} ${cntr} ./rcloneish.sh copy  mydrive: /gdrive/gd
+        run: |
+          docker run --rm -i -v$(pwd):/gdrive/ \
+            -e GD_TOKEN='${{ secrets.GD_TOKEN }}' \
+            -e GD_DRIVE_PATH='${{ secrets.GD_DRIVE_PATH }}' \
+            ${cntr} ./rcloneish.sh sync --delete-after mydrive: /gdrive/google-drive
 
-      - name: List files
-        run ls -R
-~
+      - name: Adding the files
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add google-drive/
+          git commit -a -m 'Updating Google Drive Files' || echo "No files to commit"
+          git push origin || echo "No changes to commit"
+
+
