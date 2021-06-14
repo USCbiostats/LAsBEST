@@ -5,8 +5,18 @@
 LA's Biostatistics Education Summer Training program at
 [USC](https://preventivemedicine.usc.edu/education/summer-programs/lasbest/) (LA's BEST@USC)
 
-The up-to-date version of the Curriculum is [here](curriculum.csv). You can also
-access the official class website [here](https://USCBiostats.github.io/LAsBEST).
+> 
+
+## Instructions for LA's BEST repositories
+
+If you would like to use the LA's BEST badge (which is [hosted here](https://github.com/USCbiostats/badges)), you can use
+the following code snippet:
+
+```md
+[![USC's LA's BEST program](https://raw.githubusercontent.com/USCbiostats/badges/master/tommy-lasbest-badge.svg)](https://preventivemedicine.usc.edu/education/summer-programs/lasbest/)
+```
+
+This will translate in a badge as the one we have on the top of this readme file.
 
 ## Funding
 
