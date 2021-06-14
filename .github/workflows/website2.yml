@@ -13,6 +13,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: '0-59/30 * * * *' # Every hour from 
 
 jobs:
   build:
