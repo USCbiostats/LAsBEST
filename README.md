@@ -1,6 +1,7 @@
 [![USC's LA's BEST program](https://raw.githubusercontent.com/USCbiostats/badges/master/tommy-lasbest-badge.svg)](https://preventivemedicine.usc.edu/education/summer-programs/lasbest/)
 [![Google Drive data](https://github.com/USCbiostats/LAsBEST/actions/workflows/google-drive.yml/badge.svg)](https://github.com/USCbiostats/LAsBEST/actions/workflows/google-drive.yml)
 [![Deploying w docker](https://github.com/USCbiostats/LAsBEST/actions/workflows/website2.yml/badge.svg)](https://github.com/USCbiostats/LAsBEST/actions/workflows/website2.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/USCbiostats/LAsBEST)
 
 # LAsBEST
 

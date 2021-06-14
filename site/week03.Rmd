@@ -1,0 +1,15 @@
+# Week 3
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
+fn    <- list.files("google-drive/week03/", full.names = TRUE)
+source("print_recurse.R", echo=FALSE)
+
+if (!length(fn)) {
+  cat("No files available for this week.\n")
+} else 
+  print_recurse(fn)
+  
+
+
+```
+

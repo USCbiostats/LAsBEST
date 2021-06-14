@@ -2,6 +2,8 @@
 title: "LA's BEST&#64;USC"
 ---
 
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/USCbiostats/LAsBEST">
+
 Welcome the the LA's BEST @ USC program GitHub website!.
 
 - You can find the program schedule [here](curriculum.html). 
@@ -28,6 +30,9 @@ startend <- cbind(startend[-length(startend)], startend[-1] - 1)
 curweek <- which(
   (cdates[startend[,1]] <= thisweek) & (cdates[startend[,2] + 1] > thisweek)
   )
+
+if (!length(curweek))
+  curweek <- nrow(startend)
 
 # Retrieving the corresponding calendar
 dat <- curriculum[startend[curweek,1]:startend[curweek,2],,drop=FALSE]
