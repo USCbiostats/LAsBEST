@@ -10,6 +10,11 @@ Welcome the the LA's BEST @ USC program GitHub website!.
 - The Virtual R Tutorial is available [here](https://uscbiostats.shinyapps.io/Introduction_to_R/)
 - And the Keck Website of the program is available [here](https://lasbest.usc.edu/)
 
+You can access ALL recordings (including the orientation) through blackboard:
+https://blackboard.usc.edu/webapps/login/. You do need to sign in using your USC address.
+Once you are into the Summer Institute in Biostatistics course you access the
+recordings by clicking on **USC Zoom Pro Meeting > Cloud recordings**.
+
 # This week
 
 ```{r capturing-this-week, warning=FALSE, message=FALSE, echo=FALSE}
