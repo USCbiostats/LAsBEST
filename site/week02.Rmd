@@ -1,4 +1,6 @@
-# Week 2
+---
+title: Week 2
+---
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
 fn    <- list.files("google-drive/week02/", full.names = TRUE)

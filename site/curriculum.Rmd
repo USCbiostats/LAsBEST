@@ -1,4 +1,6 @@
-# Curriculum
+---
+title: Curriculum
+---
 
 This is the current version of LA's BEST \@ USC curriculum. The final version will
 be confirmed as soon as possible.

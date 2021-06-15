@@ -39,6 +39,5 @@ vignettes/*.pdf
 .Renviron
 
 # Other files
-*.docx
 
-site/
+site/_site/

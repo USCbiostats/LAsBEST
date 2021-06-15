@@ -3,3 +3,8 @@ include: ["*.R", "./week*.Rmd"]
 exclude: ["*.ppt*", "*.doc*", "*.pdf"]
 navbar:
   title: "LA's BEST@USC"
+output:
+  html_document:
+    css: lasbest.css
+    includes:
+      after_body: footer.html
