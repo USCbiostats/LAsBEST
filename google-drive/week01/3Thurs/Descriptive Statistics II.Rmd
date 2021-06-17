@@ -1,0 +1,185 @@
+---
+title:  "<span style=color:#003399> Descriptive Statistics II </span>"
+author: "Juan Pablo Lewinger"
+date: "6/17/2021"
+output: ioslides_presentation
+widescreen: true
+smaller: true
+keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## <span style="color:#660066"> Descriptive Statistics  </span> 
+- Univariate methods: 
+  - quantitative variables: histograms, boxplots, mean/sd (for symmetric vars), median/IQR (for skewed vars)
+  - Categorical variables: barplots, table, counts, percentages
+
+- Typical goal in data analysis is understanding the relationship (associations) between pairs of variables
+
+- Today we'll focus on bivariate descriptive statistics 
+
+- Bivariate descriptive statistics can provide initial clues about associations 
+
+## <span style="color:#660066"> CHS data </span> {.smaller} 
+```{R}
+setwd("~/LA's best")
+chs = read.csv('CHS_cohortE_final_subset.csv')
+str(chs)
+```
+
+## <span style="color:#660066"> Quantitative vs. quantitative  variables</span> 
+Graphical summary: scatter plots
+
+```{r, fig.height = 3.5, fig.width = 7}
+par(mfrow = c(1,3))
+hist(chs$weight)
+hist(chs$height)
+plot(chs$height, chs$weight)
+```
+
+Many R packages for generating plots. ggplot2 is among the most popular
+
+## <span style="color:#660066"> Quantitative vs. quantitative </span> 
+
+Numerical summary: Pearson correlation coefficient 
+
+$r = corr(x,y) = \frac{\sum_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y})}{sd(x)sd(y)}$
+
+$-1 \le r \le 1$
+
+Captures strength of linear relationship between $x$ and $y$
+
+```{r}
+cor(chs$height, chs$weight)
+```
+
+## <span style="color:#660066"> Quantitative vs. quantitative </span> 
+Correlation examples
+
+```{r echo=FALSE, fig.height = 4.5, fig.width = 8, fig.align = "center"}
+library(png)
+library(grid)
+appimg <- readPNG('Correlation_examples.png')
+grid.raster(appimg)
+```
+
+Source: Wikipedia
+
+## <span style="color:#660066"> Quantitative vs. quantitative </span> 
+
+```{r include=FALSE}
+par(mfrow = c(1,3), mar = c(5,5,5,1))
+```
+
+```{r, fig.height = 3.5, fig.width = 7, fig.align = "center"}
+par(mfrow = c(1,3))
+hist(chs$sulfate)
+hist(chs$nitrate)
+plot(chs$sulfate, chs$nitrate)
+```
+
+## <span style="color:#660066"> Quantitative vs. quantitative </span> 
+
+```{r}
+plot(chs$latitude, chs$longitude, xlab = 'Latitude', ylab = 'Longitude')
+```
+
+## <span style="color:#660066"> Quantitative vs. categorical </span> {.smaller}
+
+```{r, fig.height = 3.5, fig.width = 5, fig.align = "center"}
+table(chs$townabbr)
+barplot(table(chs$townabbr))
+```
+
+## <span style="color:#660066"> Quantitative vs. Categorical </span> {.smaller}
+Graphical summary:Side by side Boxplots
+
+```{r}
+boxplot(chs$latitude ~ chs$townabbr, main = 'Latitude by town', 
+        xlab = 'Town', ylab='Latitude', col = 'steelblue')
+```
+
+## <span style="color:#660066"> Quantitative vs. categorical </span> {.smaller}
+
+```{r}
+boxplot(chs$longitude ~ chs$townabbr, main = 'Latitude by town', 
+        xlab = 'Town', ylab='Latitude', col = 'steelblue')
+```
+
+## <span style="color:#660066"> Quantitative vs. categorical </span> {.smaller}
+Numerical summary:
+
+```{r}
+chs$sex = factor(chs$male, levels = 0:1, labels = c('F', 'M'))
+boxplot(chs$height ~ chs$sex, main = 'Height by sex', 
+        xlab = 'Sex', ylab='Height', col = 'steelblue')
+```
+
+## <span style="color:#660066"> Quantitative vs. categorical </span> {.smaller}
+Numerical summary: mean/sd or median/IQR **by** levels of the categorical variable
+
+```{r}
+aggregate(chs$height, by = list(chs$sex), FUN=mean)
+aggregate(chs$height, by = list(chs$sex), FUN=sd)
+```
+
+Many nice alternatives using R packages like dplyr for general data manipulation
+
+## <span style="color:#660066"> Categorical vs. categorical </span> {.smaller}
+
+```{r}
+# '< 12th Grade', 'Grade12','Some post high-school', '4 years of college', 'Some post-graduate'
+table(chs$educ)
+table(chs$hisp)
+```
+
+## <span style="color:#660066"> Categorical vs. categorical </span> {.smaller}
+Graphical summary: Mosaic plots
+
+```{r}
+mosaicplot(chs$hisp ~ chs$educ, na.action = na.omit, ylab ='Parental Education',
+           xlab = 'Ethnicity', col='gray90', main = 'Ethnicity vs. Parental education')
+```
+
+## <span style="color:#660066"> Categorical vs. categorical </span> {.smaller}
+
+```{r}
+mosaicplot(chs$educ ~ chs$hisp, na.action = na.omit, xlab ='Parental Education',
+           ylab = 'Ethnicity', col='gray90', main = 'Parental education vs. Ethnicity')
+```
+
+## <span style="color:#660066"> Categorical vs. Categorical </span> {.smaller}
+Numerical summary: cross tabulation / contingency table
+
+```{r}
+table(chs$educ, chs$hisp)
+```
+
+- the base R `table`is not great for generating richly-featured crosstabs 
+- Many packages: ctabs, xtable, ftable, function `CrossTable` in gmodels, and many more
+
+## <span style="color:#660066"> Categorical vs. Categorical </span> {.smaller}
+Cross tabulation
+
+```{r}
+library(catspec)
+ctab(factor(chs$educ), factor(chs$hisp), type = 'n', addmargins = TRUE)
+```
+
+## <span style="color:#660066"> Categorical vs. categorical </span> {.smaller}
+Frequency table
+
+```{r}
+library(catspec)
+ctab(factor(chs$educ), factor(chs$hisp), type = 'row', addmargins = TRUE)
+```
+
+## <span style="color:#660066"> Categorical vs. categorical </span> {.smaller}
+
+```{r}
+ctab(factor(chs$educ), factor(chs$hisp), type = 'column', addmargins = TRUE)
+```
+
