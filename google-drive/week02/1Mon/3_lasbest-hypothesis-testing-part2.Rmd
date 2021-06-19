@@ -1,0 +1,247 @@
+---
+title: "LA's BEST -- Hypothesis Testing part II"
+author: "Kim Siegmund"
+date: "6/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+if(!require("genefilter")) {BiocManager::install("genefilter")}
+if(!require("ggplot2")) {install.packages("ggplot2")}
+library(genefilter)
+library(ggplot2)
+```
+
+# {.tabset}
+
+## Simulation
+
+We want to test for difference in mean blood pressure levels in smokers and non-smokers. I  will  assume blood pressure level is normally distributed with
+
+* population mean blood pressure in smokers is 122 mm Hg 
+
+* population mean blood pressure in non-smokers is 120 mm Hg
+
+* population standard deviation is 5
+
+We can write this symbolically like this:
+
+Ys~N(mean=122, sd=5)
+Yns~N(mean=120, sd=5)
+
+where Ys is the distribution of blood pressure in smokers, and Yns is distribution in non-smokers.
+
+Let's visualize what these distributions look like by picking a random sample of 1000 blood pressure measurements from the distribution in smokers and 1000 from the distribution in nonsmokers. We can do it in R like this:
+
+```{r sim_data}
+set.seed(32)
+n1 = n2 = 1000
+ys  <- rnorm(n = n1,mean = 122, sd = 5)   
+yns <- rnorm(n = n2,mean = 120, sd = 5)
+y <- c(ys,yns)
+```
+
+The last statement combines the two sets of measures into a single variable y, with the 1000 measurements in smokers first, and followed by the 1000 measurements in non-smokers.
+
+Now I need to create a smoking variable that identifies the first 1000 measurements as being from smokers  and the second 1000 from non-smokers. I will use the function rep(x,n=1000) to create 1000 copies of x, and then create a 'factor' variable for my analysis.  Here's what that looks like:
+```{r smoke}
+smoke <- c(rep("smokers",n1),rep("nonsmokers",n2))
+smoke <- factor(smoke,
+                levels=c("smokers","nonsmokers"))
+```
+
+Now we can visualize the sample distributions for these two groups.
+```{r figures}
+dat <- cbind.data.frame(y,smoke)
+ggplot(data=dat, aes(x=y, fill=smoke)) +
+    geom_density(adjust=1.5, alpha=.4) +
+     xlim(100,140)
+```
+
+The average blood pressure in smokers appears to be higher.  Sometimes we might use a boxplot to show this.
+
+```{r boxplot}
+boxplot(y~smoke)
+```
+
+Let's also create a dataset that doesn't have a difference in means. I'm going to do this by splitting the data into two random subsets of 1000. I do this by shuffling ('permuting') the smoking values. 
+
+```{r permutex}
+rsmoke <- smoke[sample(2000)]
+head(cbind.data.frame(smoke,rsmoke))
+```
+
+Now, the 1000 blood pressure measurements from 'smokers' are drawn from the entire y distribution and no longer reflect the first 1000 rows in the data. 
+
+```{r density-permutedx}
+dat <- cbind.data.frame(y,rsmoke)
+ggplot(data=dat, aes(x=y, fill=rsmoke)) +
+    geom_density(adjust=1.5, alpha=.4) +
+     xlim(100,140)
+```
+
+This figure shows that after permuting the smoking status variable, the 2 groups have similar distributions. 
+
+## Simulate 10,000 data sets
+
+Let's study the properties of a hypothesis test for a study where we sample of 50 smokers and 50 nonsmokers, measure their blood pressure, and test for a difference in means at a 5% significance level. In particular, I'm interested in how often I will have a false-positive result  (error), and how often I will have a true-positive result (correct Ha). For this simulation, I will know if the result is correct or not because I will simulate the data to have a difference in  means (mean in smokers = 122 mmHg vs mean in non-smokers  = 120 mmHg).
+
+First, let's estimate the false-positive rate by repeating this experiment 10,000 times under the Ho. 
+
+To do this, I will simulate 10,000 datasets. I will create a [100 x 10000] matrix where each column is a simulated data set. The first 50 rows are blood pressure in smokers and the last 50 rows are blood pressure in non-smokers.
+```{r sim_datamat}
+n1 = n2 = 50
+
+set.seed(33)
+# [50 x 10000] in smokers
+sim_s   <- replicate(10000,rnorm(n = n1, mean = 122, sd = 5))
+# [50 x 10000] in non-smokers
+sim_ns <- replicate(10000,rnorm(n = n2, mean = 120, sd = 5))
+mx <- rbind(sim_s,sim_ns)   # [100 x 10000] matrix
+rm(sim_s,sim_ns)
+```
+
+My smoking variable looks like this:
+```{r smokesim}
+smoke <- c(rep("smokers",n1),rep("nonsmokers",n2))
+smoke <- factor(smoke,
+                levels=c("smokers","nonsmokers"))
+table(smoke)
+```
+
+## Ho True
+
+**Distribution of T tests under null hypothesis (Ho)**
+
+Under the null hypothesis, the mean blood pressure level is the same in the two groups. For this to be the case for the simulated data, we shuffle the smoking variable levels so they are now randomly assigned to blood pressure. 
+
+Each column of the matrix of blood pressure measures is one sample of 100 blood pressure measurements. Rows 1-50 reflect measures from a N(mean=122,sd=5) and rows 51-100 from a N(mean=120,sd=5). After permuting the smoking labels, each group has a mean that should reflect a random sample of individuals from the 100 smokers and non-smokers. Thus, the means in our two groups should be the same.  
+
+Here's how to shuffle the smoking labels and then compute a t-test for each column.  
+```{r test_Ho}
+rsmoke <- smoke[sample(n1+n2)]
+tt_rand <- genefilter::colttests(mx,rsmoke)
+head(tt_rand)
+```
+
+
+```{r PlotTstatunderNull}
+hist(tt_rand$statistic)
+```
+
+What is the empirical false-positive rate?
+```{r fpr}
+mean(tt_rand$p.value<0.05)
+```
+
+Describe the results.
+
+## Ha True
+
+**Distribution of T tests under alternative hypothesis (Ha)**
+
+Now let's compute the t statistics under the alternative, using the true smoking/non-smoking variable.
+```{r 2gptest}
+tt_alt <- genefilter::colttests(mx,smoke)
+```
+
+
+```{r PlotTstatunderAlt, echo=FALSE}
+hist(tt_alt$statistic)
+```
+
+How does this distribution differ from the distribution under the Null?
+
+Let's superimpose the distributions of t-statistics under the null hypothesis and under the alternative.
+```{r figures-densities}
+sim_stats <- cbind.data.frame(
+              tstat = c(tt_rand$statistic,
+                        tt_alt$statistic),
+               test = rep(c("null","alt"),each=10000)
+              )
+ggplot(data=sim_stats, aes(x=tstat, fill=test)) +
+    geom_density(adjust=1.5, alpha=.4) + # adjust increases the bandwidth 50%
+  geom_vline(xintercept = qt(1-0.05/2,df=n1+n2-2),color="blue")
+```
+
+The vertical blue line gives our critical value where we would reject our null hypothesis at the 5% significance level. 
+
+To evaluate the true-positive rate, we want to know how many times do we reject the null hypothesis when Ha is true (mean in smokers $\neq$ mean in non-smokers).
+
+We have 10,000 data sets available to estimate the frequency of times this would occur. The data are simulated under the alternative (the means are different in the two populations). What fraction of our test statistics reject Ho?
+
+```{r compute-it}
+tt_alt <- genefilter::colttests(mx,smoke)
+mean(tt_alt$p.value < 0.05) 
+```
+
+Let's reconvene now in the main room to discuss these results.
+
+## Power of Test
+
+Power = probability of rejecting Ho, when Ha is true.
+
+```{r power}
+tt_alt <- genefilter::colttests(mx,smoke)
+mean(tt_alt$p.value < 0.05) 
+```
+
+The power of this study is very low.  We like to see the power near 0.8 or 0.9. 
+
+How might we improve the probability (power) that we find a difference in means for the above study?
+
+Let's study a larger sample size. Here we double the number of people in our study.
+
+```{r sim_datamat-doublen}
+set.seed(33)
+# [2*50 x 10000] in smokers
+sim_s   <- replicate(10000,rnorm(n = 2*n1, mean = 122, sd = 5))
+# [2*50 x 10000] in nonsmokers
+sim_ns <- replicate(10000,rnorm(n = 2*n2, mean = 120, sd = 5))
+mx <- rbind(sim_s,sim_ns)   # [2*100 x 10000] matrix
+rm(sim_s,sim_ns)
+
+smoke <- factor(c(rep("smokers",2*n1),rep("nonsmokers",2*n1)),levels=c("smokers","nonsmokers"))
+```
+
+What happens to the false positive rate? 
+
+```{r testH0-doublen}
+randmx <- apply(mx, 2, sample)
+tt_rand <- genefilter::colttests(randmx,smoke)
+mean(tt_rand$p.value < 0.05) 
+```
+
+Power:
+```{r power-doublen}
+tt_alt <- genefilter::colttests(mx,smoke)
+mean(tt_alt$p.value < 0.05) 
+```
+Conclusion: The power increased when we increased the sample size.
+
+Can we guess why from this figure?
+
+```{r figures-sim}
+sim_stats <- cbind.data.frame(
+              tstat = c(tt_rand$statistic,
+                        tt_alt$statistic),
+               test = rep(c("null","alt"),each=10000)
+              )
+ggplot(data=sim_stats, aes(x=tstat, fill=test)) +
+    geom_density(adjust=1.5, alpha=.4) + # adjust increases the bandwidth 50%
+  geom_vline(xintercept = qt(1-0.05/2,df=n1+n2-2),color="blue") +
+  geom_vline(xintercept = qt(0.05/2,df=n1+n2-2),color="blue")
+```
+
+## Question
+
+If we reject the test (e.g., p < 0.003), can we conclude that smoking causes high blood pressure?  Why or why not?
+
+## Session Info
+```{r sI}
+sessionInfo()
+```
