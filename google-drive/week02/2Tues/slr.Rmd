@@ -1,0 +1,166 @@
+---
+title: "Simple Linear Regression"
+date: "6/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# {.tabset}
+
+## Two-variable Correlation 
+Using the cholesterol dataset, explore the association between BMI and triglyceride levels. 
+
+```{r packages, message=F}
+library(dplyr)
+library(ggplot2)
+```
+
+Recall that the existing BMI was miscalculated, so we need to re-calculate it. Also generate a factor column for gender.
+```{r csv, warning=FALSE}
+data.dir = gsub('/labs', '/data', getwd())
+chol = read.csv(paste0(data.dir, '/chol.csv'))
+chol = chol %>% 
+  mutate(bmi_new = 703*wt/ht^2,
+         gender = factor(ifelse(female==1,'Female','Male')))
+```
+
+First look at scatterplots:
+```{r scatterplot}
+ggplot(chol, aes(x=bmi_new,y=tg)) +
+  geom_point()
+```
+
+Correlation, and p-value for correlation
+```{r cor, warning=FALSE}
+# pearson by default
+cor(chol$tg, chol$bmi_new, use="complete")
+# spearman
+cor(chol$tg, chol$bmi_new, use="complete", method = "spearman")
+# test of correlation
+cor.test(chol$tg, chol$bmi_new)
+```
+
+Looking at the shape of the scatterplot, we might want to try logging y (tg) and re-check the correlation
+```{r cor2, warning=FALSE}
+ggplot(chol, aes(x=bmi_new,y=log(tg))) + 
+  geom_point( col="blue")
+cor.test(log(chol$tg), chol$bmi_new) # correlation is lower!
+```
+
+Practice using two other variables!
+
+## Simple Linear Regression 
+Look at the simple linear regression between BMI and triglycerides. Summarize the coefficients. Compare model R-squared to the Pearson's correlation coefficient.
+```{r mod}
+mod = lm(tg ~ bmi_new, data=chol)
+summary(mod)
+```
+
+```{r mod-summary}
+summary(mod) %>% coef() # get only the table of coefficient estimates
+mod %>% confint() # get confidence intervals for the coefficient estimates. see ?confint()
+summary(mod)$r.squared # get R-squared to compare
+cor(chol$tg, chol$bmi_new, use="complete") ** 2
+```
+
+Extract residuals to assess linear model assumptions:
+  - Linearity
+  - Homoscedasticity
+  - Normality
+
+```{r mod-ests}
+resids = mod$residuals # residuals(mod) also works
+preds = mod$fitted.values # fitted(mod) or fitted.values(mod) also works
+```
+
+Linearity and homoscedasticity can both be assessed on the residuals vs. predicted scatterplot:
+```{r resids-linear-homosced}
+# resids vs pred
+ggplot(data.frame(resids, preds), aes(x=preds, y=resids)) +
+  geom_point() +
+  geom_abline(slope=0, col="red", size=1)
+```
+
+Normality can be assessed on the histogram and the Q-Q plot of the residuals:
+```{r resids-hist}
+# histogram plot with density overlaid with a normal curve
+ggplot(data.frame(resids), aes(x=resids)) +
+  geom_histogram(aes(y=..density..), bins=30) +
+  stat_function(fun=dnorm, args=list(mean=mean(resids), sd=sd(resids)), 
+                col="red", size=1)
+# qqplot
+ggplot(data.frame(resids), aes(sample = resids)) +
+  geom_qq_line(col="red", size=1) + 
+  geom_qq()
+```
+
+Plot the confidence interval for the regression line.
+```{r conf-int, warning=FALSE}
+# compute the upper and lower confidence interval for the regression line
+preds.ci = predict(mod, newdata = chol, interval="confidence", level = 0.95) %>% data.frame()
+head(preds.ci)
+chol$uci = preds.ci$lwr
+chol$lci = preds.ci$upr
+
+# plot the confidence interval band 
+ggplot(chol, aes(x=bmi_new, y=tg)) +
+    geom_point() +
+    geom_ribbon(aes(ymin = uci, ymax = lci), alpha = 0.2)
+# an easier way to plot the confidence interval band; also includes the regression line
+ggplot(chol, aes(x=bmi_new, y=tg)) +
+    geom_point() +
+    geom_smooth(method="lm", level=0.95)
+```
+
+Plot both confidence interval and prediction interval for the regression line
+```{r pred-int, warning=FALSE}
+# compute the upper and lower prediction interval for the regression line
+preds.pi = predict(mod, newdata = chol, interval="predict", level = 0.95) %>% data.frame()
+head(preds.pi)
+chol$lwr = preds.pi$lwr
+chol$upr = preds.pi$upr
+
+ggplot(data = chol, aes(x = bmi_new, y = tg)) +
+    geom_point() +
+    # geom_ribbon(aes(ymin = uci, ymax = lci), alpha = 0.3) +
+    geom_smooth(method='lm', level=0.95, alpha=.5) +
+    geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2)
+```
+
+## Binary Predictors
+
+Following up and comparing to t-test from last lecture, look at chol and sex (then try BMI and sex)
+
+```{r mod2}
+mod2 = lm(chol~gender, data=chol)
+summary(mod2)
+```
+
+Compare the p-value of the coefficient for gender to the p-value from the t-test:
+```{r t-test}
+t.test(chol ~ gender, data=chol, var.equal=TRUE, alternative='two.sided')
+```
+
+Now try BMI and gender
+```{r mod3}
+mod3 = lm(bmi_new~gender, data=chol)
+summary(mod3)
+```
+
+### Working with factors in R
+By default, R sorts the values and chooses the smallest value as reference (e.g, `'Female'` as the reference group for gender). Sometimes we would like to use a different group as the reference. This can be done with `relevel()`.
+```{r mod3-relevel}
+chol$gender = relevel(chol$gender, ref='Male')
+mod4 = lm(bmi_new~gender, data=chol)
+summary(mod4)
+```
+
+## Exercises
+
+1. Repeat the two-variable exploratory data analysis and correlation analysis for bmi_new against 3 other continuous variables (e.g., age, sbp, hdl, ldl, etc.).
+
+2. Fit simple linear regression models between bmi_new and each of the 3 variables you chose in Q1. Fit these individually, not jointly. Assess linear model assumptions for the models you fitted.
+
+3. Create a new binary variable for two age groups above and below the sample median age. Repeat simple linear regression with a binary predictor between bmi_new and the new avariable. (Hint: `chol$agegrp <- ifelse(chol$age > median(chol$age), 0, 1)`).
