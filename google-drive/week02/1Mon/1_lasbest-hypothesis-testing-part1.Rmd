@@ -1,0 +1,132 @@
+---
+title: "LA's BEST -- Hypothesis Testing - part I"
+author: "Kim Siegmund"
+date: "6/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+if(!require("genefilter")) {BiocManager::install("genefilter")}
+if(!require("ggplot2")) {install.packages("ggplot2")}
+library(genefilter)
+library(ggplot2)
+```
+
+# {.tabset}
+
+## Simulation
+
+We want to test for difference in mean blood pressure levels in smokers and non-smokers. I  will  assume blood pressure level is normally distributed with
+
+* population mean blood pressure in smokers is 122 mm Hg 
+
+* population mean blood pressure in non-smokers is 120 mm Hg
+
+* population standard deviation is 5
+
+We can write this symbolically like this:
+
+Ys~N(mean=122, sd=5)
+Yns~N(mean=120, sd=5)
+
+where Ys is the distribution of blood pressure in smokers, and Yns is distribution in non-smokers.
+
+Let's visualize what these distributions look like by picking a random sample of 50 blood pressure measurements from the distribution in smokers and 50 from the distribution in nonsmokers. We can do it in R like this:
+
+```{r sim_data}
+#set.seed(35)
+n1 = n2 = 50
+ys  <- rnorm(n = n1,mean = 122, sd = 5)   
+yns <- rnorm(n = n2,mean = 120, sd = 5)
+y <- c(ys,yns)
+```
+
+The last statement combines the two sets of measures into a single variable y, with the 50 measurements in smokers first, and followed by the 50 measurements in non-smokers.
+
+Now I need to create a smoking variable that identifies the first 50 measurements as being from smokers  and the second 50 from non-smokers. I will use the function rep(x,n=50) to create 50 copies of x, and then create a 'factor' variable for my analysis.  Here's what that looks like:
+```{r smoke}
+smoke <- c(rep("smokers",n1),rep("nonsmokers",n2))
+smoke <- factor(smoke,
+                levels=c("smokers","nonsmokers"))
+```
+
+Now we can visualize the sample distributions for these two groups.
+```{r figures}
+dat <- cbind.data.frame(y,smoke)
+ggplot(data=dat, aes(x=y, fill=smoke)) +
+    geom_density(adjust=1.5, alpha=.4) +
+     xlim(100,140)
+```
+
+Does the average blood pressure in smokers appears to be higher?  Why or why not?
+
+Sometimes we might use a boxplot to compare distributions.
+
+```{r boxplot}
+boxplot(y~smoke)
+```
+
+Let's also create a dataset that doesn't have a difference in means. I'm going to do this by splitting the data into two random subsets of 100. I do this by shuffling ('permuting') the smoking values. 
+
+```{r permutex}
+rsmoke <- smoke[sample(n1+n2)]
+head(cbind.data.frame(smoke,rsmoke))
+```
+
+Now, the 50 blood pressure measurements from 'smokers' are drawn from the entire y distribution and no longer reflect the first 50 rows in the data. 
+
+```{r density-permutedx}
+dat <- cbind.data.frame(y,rsmoke)
+ggplot(data=dat, aes(x=y, fill=rsmoke)) +
+    geom_density(adjust=1.5, alpha=.4) +
+     xlim(100,140)
+```
+
+Does this figure show 2 groups with similar distributions? 
+
+
+## No difference in means (Ho)
+
+Let's test difference in blood pressure for two groups with similar distributions. We use the permuted (shuffled) smoking variable for this. 
+
+**Q1:** What is your null hypothesis?
+
+**Q2:** What do you expect you will see?  (Will you reject Ho?)
+
+```{r 2gpttest-null}
+t.test(y~rsmoke,var.equal=T)
+```
+
+Is there a difference in average blood pressure?
+
+CONCLUSION:
+
+
+
+## Difference in means (Ha)
+
+Now let's test for a difference in blood pressure for the data original data of 50 smokers and 50 non-smokers.
+
+**Q:** What do you expect you will see?  (Will you reject Ho?)
+
+```{r 2gpttest-alt}
+t.test(y~smoke,var.equal=T)
+```
+
+Is there a difference in average blood pressure?
+
+CONCLUSION:
+
+
+Let's return to the main room and see if everyone got the same result... (n=17 independent studies).
+
+
+
+## Session Info
+```{r sI}
+sessionInfo()
+```
