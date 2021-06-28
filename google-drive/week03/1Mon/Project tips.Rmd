@@ -1,0 +1,61 @@
+---
+title:  "<span style=color:#003399> Project tips </span>"
+author: "Juan Pablo Lewinger"
+date: "6/28/2021"
+output: ioslides_presentation
+widescreen: true
+smaller: true
+keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## <span style="color:#660066"> Scatterplot matrix </span>{.smaller}
+
+```{r eval=FALSE, fig.height=3.5, fig.width=5, message=FALSE, warning=FALSE, include=TRUE}
+library(ggplot2)
+library(GGally)
+setwd("~/LA's best")
+chs = read.csv('CHS_cohortE_final_subset.csv')
+chs$sex = factor(chs$male, levels=c(0,1), labels=c('F', 'M'))
+ggpairs(chs[, c('fev1', 'sex', 'sulfate', 'nitrate')])
+
+```
+
+```{r echo=FALSE, fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(GGally)
+setwd("~/LA's best")
+chs = read.csv('CHS_cohortE_final_subset.csv')
+chs$sex = factor(chs$male, levels=c(0,1), labels=c('F', 'M'))
+gg = ggpairs(chs[, c('fev1', 'sex', 'sulfate', 'nitrate'), ], progress = FALSE)
+print(gg)
+
+```
+
+## <span style="color:#660066"> Project  </span> {.smaller}
+- Compute descriptive statistics first, particularly graphs 
+- ggpairs does a great job with both univariate and bivariate plots
+- Regression models
+ + Adjust for demographic and personal characteristics: age, male, race, height, and bmi. Include these variables regardless of significance.
+ + Run simple models first (i.e. outcome against each risk factor adjusting for variables above)
+ + OK to include race  even if low counts for some categories but probably not ok to stratify by race
+ + Adjust by parental education (educ), Home age (HomeBuilt), gas stove in residence, (BaseGasstove),  pet in residence (BasePets), and second hand smoke (ETS_base) if significant - Explore the association between outcomes and pollution variables (one at a time and together)
+- Use anova() to assess significance of categorical variables with more than 2 levels
+
+
+## <span style="color:#660066"> Anova example </span> {.smaller} 
+```{R}
+fev1_model <- lm(fev1 ~  bmi + race, data=chs)
+summary(fev1_model) 
+```
+
+## <span style="color:#660066"> Anova example </span> {.smaller} 
+
+```{r}
+anova(fev1_model)
+```
+
+
