@@ -41,7 +41,14 @@ Providence,41.8236,-71.4222,177994
 "))
 ```
 
-### Mapping
+- External data 
+
+- `pm25_ca_2018.csv`
+- `pm25_sites.csv`
+- `shapes` <- This is a folder
+
+
+### Mapping Point Data
 
 Let's plot the cities on a map using the leaflet package.
 
@@ -99,13 +106,13 @@ Now let's import some external geospatial data (PM2.5 concentrations from monito
 
 
 ```{r pmdat}
-pm25 = read.csv(paste0(data.dir, "/pm25_ca_2018.csv"))
-pm25.sites = read.csv(paste0(data.dir, "/pm25_sites.csv"))
+pm25 = read.csv("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/pm25_ca_2018.csv")
+pm25.sites = read.csv("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/pm25_sites.csv")
 pm25 %>% head()
 pm25.sites %>% head()
 ```
 
-We will look at the daysfires from last fall (November 2018)
+We will look at the days where there were major forest fires in November 2018
 
 ```{r pm-maps}
 pm25.pal = colorNumeric(c('darkgreen','goldenrod','brown','brown','brown'),
@@ -118,6 +125,63 @@ merge(pm25 %>% filter(date=='11/10/18'), pm25.sites, by='site_id') %>%
              opacity=1, fillOpacity=1, radius=500) %>%
   addLegend('bottomleft', pal=pm25.pal, values=pm25$pm25,
             title='PM2.5 (ug/m3)', opacity=1)
+```
+
+
+### Mapping Areal Data
+
+Typically come in Polygon geometries. They aggregate/summarize values (e.g., population, income) over geographic divisions (e.g., countries, states, counties, census blocks, etc.).
+
+Areal data are most often stored as shapefiles (.shp). Shapefiles usually come in a set of at least 4 files:
+
+- `.shp`: main shapefile
+- `.shx`: spatial index
+- `.dbf`: dBase file which stores the non-spatial columns
+- `.prj`: definition of the projection of the spatial data
+
+For example, the shapefile `ca_counties.shp` and its related files consist of polygons for California counties. We read shapefiles with the `st_read()` function from the `sf` package:
+
+
+```{r shp}
+ca.counties = st_read("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/shapes/ca_counties.shp")
+ca.counties
+ca.counties %>% class()
+```
+
+```{r geom-polygons}
+ca.counties %>% 
+  leaflet() %>% 
+  addProviderTiles('OpenStreetMap') %>% 
+  addPolygons(weight=1, fillOpacity=.25, label=~county)
+```
+
+An `sf` object is also a `data.frame` so most of the time typically `data.frame` operations work the same way. `geometry` is the unique column to look out for.
+
+You can also create your own `sf` objects, most typically for Point data when given coordinates (longitude and latitude) of the features, using the `st_as_sf()` function.
+
+
+
+```{r areal-data}
+pop.pal = colorNumeric(c('beige','brown','brown'),
+                       domain=ca.counties$population)
+ca.counties %>% 
+  leaflet() %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addPolygons(fillColor=~pop.pal(population), weight=.5, fillOpacity=.9,
+              label=~paste0(county, ': ', population))
+```
+
+### Mapping Lines/Polylines
+
+Shapefiles can also represent lines. For example, we can look at the LA Metro Rail lines
+```{r geom-lines}
+metro.rails = st_read("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/shapes/metro_lines.shp")
+line.pal = colorFactor(c('blue','cornflowerblue','darkgoldenrod','darkgreen','firebrick'),
+                       domain=metro.rails$line)
+metro.rails %>%
+  leaflet() %>% 
+  addProviderTiles('Wikimedia') %>% 
+  addPolylines(color=~line.pal(line), label=~line, opacity=.9)
 ```
 
 ### Geocoding
