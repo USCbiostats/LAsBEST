@@ -1,0 +1,157 @@
+---
+title: "spatial1"
+author: "Meredith Franklin"
+date: "7/1/2021"
+output: html_document
+---
+
+# {.tabset}  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup {.tabset}
+
+### Packages and Data
+
+Install the following packages and set the directory where data are located:
+
+```{r pkgs, message=F, warning=F}
+library(dplyr)
+library(ggplot2)
+library(leaflet) # plotting spatial data
+library(htmlwidgets) # to save html maps that are interactive
+library(sf) # handle simple features objects
+library(ggmap) # for querying google API for geocoding
+
+```
+
+- We create a set of geospatial points representing cities and their populations.
+
+
+```{r data, message=F, warning=F}
+cities <- read.csv(textConnection("
+city,lat,lon,pop
+Boston,42.3601,-71.0589,645966
+Hartford,41.7627,-72.6743,125017
+New York City,40.7127,-74.0059,8406000
+Philadelphia,39.9500,-75.1667,1553000
+Pittsburgh,40.4397,-79.9764,305841
+Providence,41.8236,-71.4222,177994
+"))
+```
+
+### Mapping
+
+Let's plot the cities on a map using the leaflet package.
+
+```{r pointsmap1}
+  leaflet(cities) %>% 
+  addTiles() %>%
+  addCircles(lng = ~lon, lat = ~lat, 
+             color='firebrick', fillOpacity=1, opacity=1, radius=700)
+
+```
+
+Try changing the basemap with different "provider tiles" using addProviderTiles option (e.g. Wikimedia, CartoDB.Positron) https://leaflet-extras.github.io/leaflet-providers/preview/
+
+```{r pointsmap2}
+
+leaflet(cities) %>% 
+  addProviderTiles('Wikimedia') %>% 
+  addCircles(lng = ~lon, lat = ~lat,
+             fillOpacity=1, opacity=1, radius=700)
+
+```
+
+
+Now let's make the circle size proportional to the population of each city
+
+```{r pointsmap3}
+
+leaflet(cities) %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(lng = ~lon, lat = ~lat, weight = 1, 
+             color = "purple", opacity = 1,
+             radius = ~sqrt(pop) * 40, popup = ~city)
+
+```
+
+
+Finally let's colour the circle size differently by population, add a legend, and add popups with labels.
+
+```{r pointsmap4}
+
+pop.pal = colorNumeric(c('blue','brown','brown'), domain=cities$pop)
+leaflet(cities) %>% 
+  addTiles() %>%
+  addCircles(lng = ~lon, lat = ~lat, weight = 20, 
+             color = ~pop.pal(pop), opacity = 1,
+             label=~paste0(city, ': ', pop)) %>%
+  addLegend(position = "bottomright", pal = pop.pal, values = ~pop,
+            title="Population",opacity=1)
+
+```
+
+Now let's import some external geospatial data (PM2.5 concentrations from monitoring stations) and map them.
+
+- Data source: [EPA PM2.5](https://www.epa.gov/outdoor-air-quality-data/download-daily-data)
+
+
+```{r pmdat}
+pm25 = read.csv(paste0(data.dir, "/pm25_ca_2018.csv"))
+pm25.sites = read.csv(paste0(data.dir, "/pm25_sites.csv"))
+pm25 %>% head()
+pm25.sites %>% head()
+```
+
+We will look at the daysfires from last fall (November 2018)
+
+```{r pm-maps}
+pm25.pal = colorNumeric(c('darkgreen','goldenrod','brown','brown','brown'),
+                        domain=pm25$pm25)
+merge(pm25 %>% filter(date=='11/10/18'), pm25.sites, by='site_id') %>% 
+  st_as_sf(coords=c('longitude','latitude'), crs=4326) %>% 
+  leaflet() %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(label=~paste0(pm25, ' ug/m3'), color=~pm25.pal(pm25),
+             opacity=1, fillOpacity=1, radius=500) %>%
+  addLegend('bottomleft', pal=pm25.pal, values=pm25$pm25,
+            title='PM2.5 (ug/m3)', opacity=1)
+```
+
+### Geocoding
+
+Suppose we have names of locations or street addresses - we can query the Google API to geocode them.
+
+- Google API requires a Developer API key, please use yours if you have one or use mine sparingly! Geocoding a large number of locations comes with a fee.
+
+```{r gapi}
+register_google(key = "AIzaSyCME84C5t6Al2SBbYLhNPyuxg3reYwghCc")
+```
+
+Let's pick some points of interest and geocode them
+
+```{r geoc}
+la_locs <- tibble(location = c("Staples Center, Los Angeles", "University of Southern California" ,"Santa Monica Pier"))
+# Geocode locations
+geo_la_locs <- geocode(la_locs$location)
+# Make a data frame with the locations
+la_locs_df <- cbind(la_locs, geo_la_locs)
+```
+
+Now map the points, and save the map
+
+```{r geoc-map}
+m=leaflet(la_locs_df)%>% 
+  addProviderTiles("Esri.WorldImagery") %>%
+  addCircles(lng = ~lon, lat = ~lat, weight = 15, opacity=0.9)
+m
+
+#saveWidget(m, file=paste0(data.dir, "la_map.html"))
+
+```
+
+Try your own points of interest, different basemaps, different colour schemes, submit some maps.
+
+
