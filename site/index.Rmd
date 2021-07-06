@@ -51,6 +51,6 @@ dat[[1]] <- sprintf(
   as.integer(gsub("^\\s*([0-9]+)\\s+.+", "\\1", dat[[1]]))
   )
 options(knitr.kable.NA = '-')
-knitr::kable(dat)
+knitr::kable(dat, row.names = FALSE)
 ```
 
