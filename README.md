@@ -19,4 +19,4 @@ recordings by clicking on **USC Zoom Pro Meeting > Cloud recordings**.
 ## Funding
 
 This program is funded under the Summer Institutes in Biostatistics (SIBS) program of the National Heart, Lung, and Blood Institute [Grant #:R25 HL147236].
-For more information, visit [this website](https://www.nhlbi.nih.gov/grants-and-training/summer-institute-biostatistics).
+For more information, visit [this website](https://www.nhlbi.nih.gov/grants-and-training/summer-institute-biostatistics). We also thank the generous support of the Dean of the Keck School of Medicine of USC and the USC Norris Comprehensive Cancer Center.
