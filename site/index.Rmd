@@ -1,9 +1,5 @@
 ---
 title: "LA's BEST&#64;USC"
-output:
-  html_document:
-    includes:
-      after_body: footer.html
 ---
 
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/USCbiostats/LAsBEST">
@@ -13,11 +9,6 @@ Welcome the the LA's BEST @ USC program GitHub website!.
 - You can find the program schedule [here](curriculum.html). 
 - The Virtual R Tutorial is available [here](https://uscbiostats.shinyapps.io/Introduction_to_R/)
 - And the Keck Website of the program is available [here](https://lasbest.usc.edu/)
-
-You can access ALL recordings (including the orientation) through blackboard:
-https://blackboard.usc.edu/webapps/login/. You do need to sign in using your USC address.
-Once you are into the Summer Institute in Biostatistics course you access the
-recordings by clicking on **USC Zoom Pro Meeting > Cloud recordings**.
 
 # This week
 
@@ -33,24 +24,26 @@ cdates     <- as.Date(gsub(
 
 # Identifying the endtips
 startend <- which(!is.na(cdates))
-startend <- cbind(startend[-length(startend)], startend[-1] - 1)
+startend <- data.frame(start = startend, end = c(startend[-1], nrow(curriculum)))
+startend[, "startdate"] <- as.Date(cdates[startend[,1]])
+startend[, "enddate"]   <- as.Date(cdates[startend[,1]] + 7)
 
 # Condition
 curweek <- which(
-  (cdates[startend[,1]] <= thisweek) & (cdates[startend[,2] + 1] > thisweek)
+  (startend$startdate <= thisweek) & (startend$enddate > thisweek)
   )
 
 if (!length(curweek))
   curweek <- nrow(startend)
 
 # Retrieving the corresponding calendar
-dat <- curriculum[startend[curweek,1]:startend[curweek,2],,drop=FALSE]
+dat <- curriculum[startend[curweek,"start"]:startend[curweek,"end"],,drop=FALSE]
 dat[[1]] <- sprintf(
   "[%s](week%02i.html)",
   dat[[1]],
   as.integer(gsub("^\\s*([0-9]+)\\s+.+", "\\1", dat[[1]]))
   )
 options(knitr.kable.NA = '-')
-knitr::kable(dat, row.names = FALSE)
+knitr::kable(dat)
 ```
 
