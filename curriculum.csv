@@ -1,36 +1,36 @@
 Week,Theme,Mon,Tues,Thurs
-1 (6/14),**Descriptive**,,,
+1 (6/13),**Descriptive**,,,
 ,10 AM,Mindfulness Monday (MM) /  Intro to Biostats ,How to Develop a Research Question,Population Sampling/Estimation
 ,11 AM,Responsible Conduct of Research,Introduce: DAG/Causal inference,
 ,Lunch break,,,
 ,1 PM,Children's Health Study,Descriptive Statistics,Confounding
 ,2 PM,Spirometry,Distribute Data set Create Table 1,Post Table 1 on Slack by midnight Friday
-2 (6/21),**Multivariable**,,,
+2 (6/20),**Multivariable**,,,
 ,10 AM,"MM / Guest: Prof. Stacey Finley, USC Viterbi School of Engineering",Introduction To Linear Regression ,Multiple Linear Regression/Model Building
 ,11 AM,Meet Grad Students,,
 ,Lunch break,,,
 ,1 PM,Hypothesis Testing,A: Linear Regr. in CHS [TAs],A: Model building in CHS
 ,2 PM,2-sample tests ,Getting into Grad School,
-3 (6/28),**Spatial**,,,
+3 (6/27),**Spatial**,,,
 ,9 AM,,     Presentations [CPS],
-,10 AM,MM / Guest: Claradina Soto,Logistic Regression ,     Intro to Spatial Data & GIS[MF]
+,10 AM,MM / Guest: Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY]
 ,11 AM,"A: Share CHS models [CHS fac, TAs]",,
 ,Lunch break,,,
 ,1 PM,A: Refine Models ,A: LR in CHS ,"A: GIS "
 ,2 PM,,,
-4 (7/5),**GWAS**,,,
+4 (7/4),**GWAS**,,,
 ,10 AM,**USC HOLIDAY**,Visualizing Spatial Data,Intro to SNPs/Population Structure
 ,11 AM,,,
 ,Lunch break,,,
 ,1 PM,,"A: Maps of CHS data ","A: Layout Posters "
 ,2 PM,,Layout for Poster ,Posters on Slack by midnight Friday
-5 (7/12),**Data Science**,,,
-,10 AM,MM / Guest: Albert Farias,Classification Training/Testing ,A: Slides for Group 5-min talk [TAs]
+5 (7/11),**Data Science**,,,
+,10 AM,MM / Guest: TBN,Classification Training/Testing ,A: Slides for Group 5-min talk [TAs]
 ,11 AM, Faculty Review Posters,(11:30am) Racism in ML, 
 ,Lunch break,,,
 ,1 PM,A: Revise Posters,A: Finalize Posters ,Share Oral Project Presentation
 ,2 PM,,Writing a Personal Statement/3-min Elevator Pitch, 
-6 (7/19),**Networking**,,,
+6 (7/18),**Networking**,,,
 ,10 AM,Career Day,Interview Day, Presentation session
 ,11 AM,Kaiser Permanente Group,,
 ,Lunch break,,,
