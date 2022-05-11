@@ -1,4 +1,5 @@
-[![USC's LA's BEST program](https://raw.githubusercontent.com/USCbiostats/badges/master/tommy-lasbest-badge.svg)](https://preventivemedicine.usc.edu/education/summer-programs/lasbest/)
+[![USC's LA's BEST program](https://raw.githubusercontent.com/USCbiostats/badges/master/tommy-lasbest-badge.svg)]
+(https://lasbest.usc.edu/)
 [![Google Drive data](https://github.com/USCbiostats/LAsBEST/actions/workflows/google-drive.yml/badge.svg)](https://github.com/USCbiostats/LAsBEST/actions/workflows/google-drive.yml)
 [![Deploying w docker](https://github.com/USCbiostats/LAsBEST/actions/workflows/website2.yml/badge.svg)](https://github.com/USCbiostats/LAsBEST/actions/workflows/website2.yml)
 ![GitHub last commit](https://img.shields.io/github/last-commit/USCbiostats/LAsBEST)
@@ -6,7 +7,7 @@
 # LAsBEST
 
 LA's Biostatistics Education Summer Training program at
-[USC](https://preventivemedicine.usc.edu/education/summer-programs/lasbest/) (LA's BEST@USC)
+[USC](https://lasbest.usc.edu/) (LA's BEST@USC)
 
 The up-to-date version of the Curriculum is [here](curriculum.csv). You can also
 access the official class website [here](https://USCBiostats.github.io/LAsBEST).
