@@ -14,7 +14,7 @@ Welcome the the LA's BEST @ USC program GitHub website!.
 # This week
 
 ```{r capturing-this-week, warning=FALSE, message=FALSE, echo=FALSE}
-thisweek   <- max(as.Date("2021-06-14"), Sys.Date())
+thisweek   <- max(as.Date("2022-06-13"), Sys.Date())
 thisyear   <- as.integer(gsub("\\-.+", "", Sys.Date()))
 curriculum <- read.csv("../curriculum.csv")
 cdates     <- as.Date(gsub(
