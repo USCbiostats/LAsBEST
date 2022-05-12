@@ -6,9 +6,10 @@ title: "LA's BEST&#64;USC"
 
 Welcome the the LA's BEST @ USC program GitHub website!.
 
-- You can find the program schedule [here](curriculum.html). 
-- The Virtual R Tutorial is available [here](https://uscbiostats.shinyapps.io/Introduction_to_R/)
-- And the Keck Website of the program is available [here](https://lasbest.usc.edu/)
+- You can find the program schedule [here](curriculum.html).
+- The Virtual R Tutorial is available [here](https://uscbiostats.shinyapps.io/Introduction_to_R/).
+- And the Keck Website of the program is available [here](https://lasbest.usc.edu/).
+- The GitHub source code (and materials) are [here](https://github.com/USCbiostats/LAsBEST).
 
 # This week
 
