@@ -1,38 +1,38 @@
-Week,Theme,Mon,Tues,Thurs
-1 (6/13),**Descriptive**,,,
-,10 AM,Mindfulness Monday (MM) /  Intro to Biostats ,How to Develop a Research Question,Population Sampling/Estimation
-,11 AM,Responsible Conduct of Research,Introduce: DAG/Causal inference,
-,Lunch break,,,
-,1 PM,Children's Health Study,Descriptive Statistics,Confounding
-,2 PM,Spirometry,Distribute Data set Create Table 1,Post Table 1 on Slack by midnight Friday
-2 (6/20),**Multivariable**,,,
-,10 AM,"MM / Guest: Prof. Stacey Finley, USC Viterbi School of Engineering",Introduction To Linear Regression ,Multiple Linear Regression/Model Building
-,11 AM,Meet Grad Students,,
-,Lunch break,,,
-,1 PM,Hypothesis Testing,A: Linear Regr. in CHS [TAs],A: Model building in CHS
-,2 PM,2-sample tests ,Getting into Grad School,
-3 (6/27),**Spatial**,,,
-,9 AM,,     Presentations [CPS],
-,10 AM,MM / Guest: Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY]
-,11 AM,"A: Share CHS models [CHS fac, TAs]",,
-,Lunch break,,,
-,1 PM,A: Refine Models ,A: LR in CHS ,"A: GIS "
-,2 PM,,,
-4 (7/4),**GWAS**,,,
-,10 AM,**USC HOLIDAY**,Visualizing Spatial Data,Intro to SNPs/Population Structure
-,11 AM,,,
-,Lunch break,,,
-,1 PM,,"A: Maps of CHS data ","A: Layout Posters "
-,2 PM,,Layout for Poster ,Posters on Slack by midnight Friday
-5 (7/11),**Data Science**,,,
-,10 AM,MM / Guest: TBN,Classification Training/Testing ,A: Slides for Group 5-min talk [TAs]
-,11 AM, Faculty Review Posters,(11:30am) Racism in ML, 
-,Lunch break,,,
-,1 PM,A: Revise Posters,A: Finalize Posters ,Share Oral Project Presentation
-,2 PM,,Writing a Personal Statement/3-min Elevator Pitch, 
-6 (7/18),**Networking**,,,
-,10 AM,Career Day,Interview Day, Presentation session
-,11 AM,Kaiser Permanente Group,,
-,Lunch break,,,
-,1 PM,USC Biostat Alumni,LinkedIn,Exit Survey
-,2 PM,Amgen Corp. Group,,
+Week,Theme,Mon,Tue,Wed,Thu,Fri
+1 (6/13),**Descriptive**,,,,,
+,10:00 AM,Mindfulness Monday (MM) /  Intro to Biostats ,How to Develop a Research Question,Population Sampling,Descriptive Stats,Intro: DAG/Causal inference
+,11:00 AM,11:15a:  3 minute elevator pitch,,Estimation,,
+,Lunch break,,Dim Sum,,,
+,1:00 PM,Responsible Conduct of Research,1:30-4:30 Recording/,Proj Research Q; Distribute data,Create Table 1,Share Table 1
+,2:00 PM,Children's Health Study,Data Collection/Analysis,How to read a journal article,,Post Table 1 on Slack by midnight 
+2 (6/20),**Multivariable**,,,,,
+,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats,Introduction To Linear Regression ,Multiple Linear Regression/Model Building,Share Modeling Strategies
+,11:00 AM,Meet Grad Students,,,,Family Feud
+,Lunch break,,,,,
+,1:00 PM,Health  Disparities Research,"Hypothesis Testing [KS,TAs]",A: Linear reg (ggpairs) [TAs],,A: Model building in CHS
+,2:00 PM,,2-sample tests,A: Linear Regr. in CHS,,
+3 (6/27),**Spatial**,,,,,
+,9:00 AM,,     Presentations [CPS],,,
+,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
+,11:00 AM,"A: Share CHS models [JG, TAs]",,,,
+,Lunch break,,,,,
+,1:00 PM,A: Refine Models ,A: LR in CHS ,A: GIS [TAs],A: Maps of CHS datta [TAs],Scientific Presentations [CPS]
+,2:00 PM,,,,,Start Poster Layouts [TAs]
+4 (7/4),**GWAS**,,,,,
+,10:00 AM,**USC HOLIDAY**,Work on Poster Layouts [TAs],Clinical Trials,GWAS/Population Structure [DC],Mouse Models vs Human Studies
+,11:00 AM,,,,,
+,Lunch break,,,,,
+,1:00 PM,,Share results,Field Trip to Amgen??,A: lab,Revise Posters & re-post to Slack
+,2:00 PM,,Finish Posters & Post to Slack,,,
+5 (7/11),**Data Science**,,,,,
+,10:00 AM,MM / Guest: TBN,Supervised Leaning [JP],Write 5-min poster & submit [TAs],Cross Validation [JP],Deep Learning
+,11:00 AM, Faculty Review Posters,,, ,
+,Lunch break,,,,,
+,1:00 PM,A: Finalize Posters & submit,Racism in ML,Getting into Grad School [RW],Share Oral Project Presentation,practice 5-min poster
+,2:00 PM,,return Posters,Write a Personal Statement , ,
+6 (7/18),**Networking**,,,,,
+,9:30 AM,Record Posters,Record Posters,Career Day, Presentation session,
+,11:00 AM,,,Kaiser Permanente Group,,
+,Lunch break,,,,,
+,1:00 PM,Record  Posters,Practice Interviews,USC Biostat Alumni,Exit Survey,
+,2:00 PM,,,LinkedIn,,
