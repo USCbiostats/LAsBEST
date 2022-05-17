@@ -1,18 +1,20 @@
 Week,Theme,Mon,Tue,Wed,Thu,Fri
 1 (6/13),**Descriptive**,,,,,
-,10:00 AM,Mindfulness Monday (MM) /  Intro to Biostats ,How to Develop a Research Question,Population Sampling,Descriptive Stats,Intro: DAG/Causal inference
+,Room,SSB-115,,,,
+,10:00 AM,Mindfulness Monday (MM) /  Intro to Biostats [SE],How to Develop a Research Question [SE],Population Sampling [JP],Descriptive Stats [JP],Intro: DAG/Causal inference [EG]
 ,11:00 AM,11:15a:  3 minute elevator pitch,,Estimation,,
 ,Lunch break,,Dim Sum,,,
-,1:00 PM,Responsible Conduct of Research,1:30-4:30 Recording/,Proj Research Q; Distribute data,Create Table 1,Share Table 1
-,2:00 PM,Children's Health Study,Data Collection/Analysis,How to read a journal article,,Post Table 1 on Slack by midnight 
+,1:00 PM,Responsible Conduct of Research [KS],1:30-4:30 Recording/,Proj Research Q; Distribute data,Create Table 1 [TAs],Share Table 1 [TAs]
+,2:00 PM,Children's Health Study [JG],Data Collection/Analysis,How to read a journal article,,Post Table 1 on Slack by midnight 
 2 (6/20),**Multivariable**,,,,,
-,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats,Introduction To Linear Regression ,Multiple Linear Regression/Model Building,Share Modeling Strategies
-,11:00 AM,Meet Grad Students,,,,Family Feud
+,Room,SSB-115,SSB-115,SSB-117,SSB-114,SSB-117
+,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats,Introduction To Linear Regression  [TP],Multiple Linear Regression/Model Building [TP],Share Modeling Strategies
+,11:00 AM,Meet Grad Students [TAs+…],,,,Family Feud
 ,Lunch break,,,,,
 ,1:00 PM,Health  Disparities Research,"Hypothesis Testing [KS,TAs]",A: Linear reg (ggpairs) [TAs],,A: Model building in CHS
 ,2:00 PM,,2-sample tests,A: Linear Regr. in CHS,,
 3 (6/27),**Spatial**,,,,,
-,9:00 AM,,     Presentations [CPS],,,
+,,SSB-114,SSB-115,,,
 ,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
 ,11:00 AM,"A: Share CHS models [JG, TAs]",,,,
 ,Lunch break,,,,,
