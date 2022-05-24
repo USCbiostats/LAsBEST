@@ -4,21 +4,21 @@ Week,Theme,Mon,Tue,Wed,Thu,Fri
 ,10:00 AM,Mindfulness Monday (MM) /  Intro to Biostats [SE],How to Develop a Research Question [SE],Population Sampling [JP],Descriptive Stats [JP],Intro: DAG/Causal inference [EG]
 ,11:00 AM,11:15a:  3 minute elevator pitch,,Estimation,,
 ,Lunch break,,Dim Sum,,,
-,1:00 PM,Responsible Conduct of Research [KS],1:30-4:30 Recording/,Proj Research Q; Distribute data,Create Table 1 [TAs],Share Table 1 [TAs]
-,2:00 PM,Children's Health Study [JG],Data Collection/Analysis,How to read a journal article,,Post Table 1 on Slack by midnight 
+,1:00 PM,Responsible Conduct of Research [KS],1:30-4:30 Recording/,A: Pop sampling [TAs],Create Table 1 [TAs],Share Table 1 [TAs]
+,2:00 PM,Children's Health Study [JG],Data Collection/Analysis,Proj Research Q; Distribute data,,Post Table 1 on Slack by midnight 
 2 (6/20),**Multivariable**,,,,,
 ,Room,SSB-115,SSB-115,SSB-117,SSB-114,SSB-117
 ,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats,Introduction To Linear Regression  [TP],Multiple Linear Regression/Model Building [TP],Share Modeling Strategies
-,11:00 AM,Meet Grad Students [TAs+…],,,,Family Feud
+,11:00 AM,Meet Grad Students [TAs+…],"Hypothesis Testing [KS,TAs]",,,Family Feud
 ,Lunch break,,,,,
-,1:00 PM,Health  Disparities Research,"Hypothesis Testing [KS,TAs]",A: Linear reg (ggpairs) [TAs],,A: Model building in CHS
-,2:00 PM,,2-sample tests,A: Linear Regr. in CHS,,
+,1:00 PM,Health  Disparities Research,2-sample tests,A: Linear reg (ggpairs) [TAs],Confounding [SSB-301],A: Model building in CHS
+,2:00 PM,,How to read a journal article,A: Linear Regr. in CHS [TAs],Model building in CHS [SSB-117],
 3 (6/27),**Spatial**,,,,,
-,,SSB-114,SSB-115,,,
+,Room,SSB-114,SSB-115,SSB-115,SSB-115,SSB-115
 ,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
 ,11:00 AM,"A: Share CHS models [JG, TAs]",,,,
 ,Lunch break,,,,,
-,1:00 PM,A: Refine Models ,A: LR in CHS ,A: GIS [TAs],A: Maps of CHS datta [TAs],Scientific Presentations [CPS]
+,1:00 PM,A: Refine Models [TAs],A: LR in CHS [TAs],A: GIS [TAs],A: Maps of CHS data [TAs],Scientific Presentations [CPS]
 ,2:00 PM,,,,,Start Poster Layouts [TAs]
 4 (7/4),**GWAS**,,,,,
 ,10:00 AM,**USC HOLIDAY**,Work on Poster Layouts [TAs],Clinical Trials,GWAS/Population Structure [DC],Mouse Models vs Human Studies
