@@ -8,14 +8,14 @@ Week,Theme,Mon,Tue,Wed,Thu,Fri
 ,2:00 PM,Children's Health Study [JG],Data Collection/Analysis,Proj Research Q; Distribute data,,Post Table 1 on Slack by midnight 
 2 (6/20),**Multivariable**,,,,,
 ,Room,SSB-115,SSB-115,SSB-117,SSB-114,SSB-117
-,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats,Introduction To Linear Regression  [TP],Multiple Linear Regression/Model Building [TP],Share Modeling Strategies
+,10:00 AM,MM / Guest: Prof. Claradina Soto,Bivariate Descriptive Stats [EK],Introduction To Linear Regression  [TP],Multiple Linear Regression/Model Building [TP],Share Modeling Strategies
 ,11:00 AM,Meet Grad Students [TAs+…],"Hypothesis Testing [KS,TAs]",,,Family Feud
 ,Lunch break,lunch w/Grad Students,,,,
 ,1:00 PM,Health  Disparities Research,2-sample tests,A: Linear reg (ggpairs) [TAs],Confounding [SSB-301],A: Model building in CHS
 ,2:00 PM,,How to read a journal article,A: Linear Regr. in CHS [TAs],Model building in CHS [SSB-117],
 3 (6/27),**Spatial**,,,,,
 ,Room,SSB-114,SSB-115,SSB-115,SSB-115,SSB-115
-,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression ,     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
+,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression [EK],     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
 ,11:00 AM,"A: Share CHS models [JG, TAs]",,,,
 ,Lunch break,,,,,
 ,1:00 PM,A: Refine Models [TAs],A: LR in CHS [TAs],A: GIS [TAs],A: Maps of CHS data [TAs],Scientific Presentations [CPS]
@@ -24,7 +24,7 @@ Week,Theme,Mon,Tue,Wed,Thu,Fri
 ,10:00 AM,**USC HOLIDAY**,Work on Poster Layouts [TAs],Clinical Trials,GWAS/Population Structure [DC],Mouse Models vs Human Studies
 ,11:00 AM,,,,,
 ,Lunch break,,,,,
-,1:00 PM,,Share results,Field Trip to Amgen??,A: lab,Revise Posters & re-post to Slack
+,1:00 PM,,Share results,,A: lab,Revise Posters & re-post to Slack
 ,2:00 PM,,Finish Posters & Post to Slack,,,
 5 (7/11),**Data Science**,,,,,
 ,10:00 AM,MM / Guest: TBN,Supervised Leaning [JP],Write 5-min poster & submit [TAs],Cross Validation [JP],Deep Learning
@@ -34,7 +34,7 @@ Week,Theme,Mon,Tue,Wed,Thu,Fri
 ,2:00 PM,,return Posters,Write a Personal Statement , ,
 6 (7/18),**Networking**,,,,,
 ,9:30 AM,Record Posters,Record Posters,Career Day, Presentation session,
-,11:00 AM,,,Kaiser Permanente Group,,
+,11:00 AM,,,,,
 ,Lunch break,,,,,
 ,1:00 PM,Record  Posters,Practice Interviews,USC Biostat Alumni,Exit Survey,
 ,2:00 PM,,,LinkedIn,,
