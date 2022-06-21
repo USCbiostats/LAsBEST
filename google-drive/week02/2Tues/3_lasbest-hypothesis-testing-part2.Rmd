@@ -179,7 +179,7 @@ tt_alt <- genefilter::colttests(mx,smoke)
 mean(tt_alt$p.value < 0.05) 
 ```
 
-Let's reconvene now in the main room to discuss these results.
+Let's reconvene with the rest of the class to discuss these results.
 
 ## Power of Test
 
