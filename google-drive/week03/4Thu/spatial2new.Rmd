@@ -1,0 +1,139 @@
+---
+title: "Spatial 2"
+author: "Xiaozhe Yin"
+date: '2022-06-27'
+output: html_document
+---
+
+## {.tabset}
+
+### Install the following packages
+
+```{r pkgs, message=F}
+library(leaflet) # for mapping
+library(htmlwidgets) # to save html maps that are interactive
+library(tidyverse) # very useful for data wrangling
+library(mgcv) # for gam smoothing
+library(geoR) # for kriging 
+```
+
+### Visualizing PM data
+
+```{r}
+pmdat<-read.csv("/Users/yinxiaozhe/Downloads/summer_class/pmdata.csv")
+
+pmcol <- colorNumeric(palette = colorRampPalette(c('blue', 'red'))(length(pmdat$pm)), 
+                      domain = pmdat$pm)
+
+leaflet(pmdat) %>% 
+  addProviderTiles("CartoDB.Positron") %>%
+  addCircles(lng = ~lon, lat = ~lat, color = ~pmcol(pm), opacity = 1) %>%
+  addLegend(position = "bottomright", pal = pmcol, values = ~pm, title="PM2.5",
+            opacity=1)
+```
+
+### Semivariogram of PM data
+
+```{r}
+pmdat_geo<-as.geodata(pmdat,coords.col=c(1,2), data.col=3)
+plot(pmdat_geo)
+
+vario1<-variog(pmdat_geo,option="cloud",estimator.type="classical")
+plot(vario1,xlab="Distance")
+
+vario4<-variog(pmdat_geo,uvec=seq(0,12,l=15),bin.cloud=T,estimator.type="modulus")
+plot(vario4,bin.cloud=T,xlab="Bin")
+
+# empirical binned semivariogram
+vario<-variog(pmdat_geo,uvec=seq(0,12,l=15),option="bin",estimator.type="modulus")
+plot(vario,xlab="Distance")
+
+# fit theoretical to data (try gaussian and exponential functions)
+vfit_wls=variofit(vario,ini.cov.pars=c(25,7),nugget=5,fix.nugget=FALSE,cov.model='gaussian',weights='cressie')
+vfit_wls
+lines(vfit_wls, col="red")
+
+vfit_wls2=variofit(vario,ini.cov.pars=c(25,7),nugget=5,fix.nugget=FALSE,cov.model='exponential',weights='cressie')
+vfit_wls2
+lines(vfit_wls2, col="blue")
+```
+
+### Model fit and prediction
+
+- Use fitted model to do kriging 
+- Set up grid for predictions
+- Plot predictions on a map
+
+```{r}
+res=100
+xs=seq(min(pmdat$lon),max(pmdat$lon),len=res)
+ys=seq(min(pmdat$lat),max(pmdat$lat),len=res)
+myGrid=expand.grid(xs,ys)
+names(myGrid)=c('lon','lat')
+
+
+kriged_grid=krige.conv(pmdat_geo,locations=myGrid,
+                       krige=krige.control(obj.model=vfit_wls2),
+                       output=output.control(signal=TRUE))
+
+# plot predictions on a map
+
+preds = data.frame(myGrid, 
+                   pred.pm=kriged_grid$predict %>% as.vector)
+pred.pal = colorNumeric(c('darkgreen','gold1','brown'),
+                             domain=preds$pred.pm)
+preds %>% 
+  leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  addCircles(lng=~lon, lat=~lat, color=~pred.pal(pred.pm),
+             opacity=.5, fillOpacity=.7, radius=1e3) %>% # points w/ 1KM radius
+  addLegend('bottomleft', pal=pred.pal, values=preds$pred.pm,
+            title="Pred. PM2.5", opacity=.7)
+```
+
+### GAM spatial smoothing
+
+```{r}
+gam1<-gam(pm~s(lon, lat,k=150),data=pmdat)
+summary(gam1)
+# get predictions in the grid
+preds = data.frame(myGrid, 
+                   pred.pm=predict(gam1, newdata = myGrid) %>% as.vector)
+
+# plot the gridded predictions
+pred.pal = colorNumeric(c('darkgreen','gold1','brown'),
+                             domain=preds$pm)
+preds %>% 
+  leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  addCircles(lng=~lon, lat=~lat, color=~pred.pal(pred.pm),
+             opacity=.7, fillOpacity=.7, radius=1e3) %>% # points w/ 1KM radius
+  addLegend('bottomleft', pal=pred.pal, values=preds$pred.pm,
+            title="Pred PM gam", opacity=.7)
+```
+
+### Try it yourself
+
+Kriging and smoothing temperature
+
+```{r}
+met<-read.csv("/Users/yinxiaozhe/Downloads/summer_class/met_data.csv")
+
+
+gam1<-gam(temp~s(lon, lat),data=met)
+
+
+preds<-predict(gam1, newdata = myGrid)
+preds = data.frame(myGrid, 
+                   pred.temp=predict(gam1, newdata = myGrid) %>% as.vector)
+pred.temp.pal = colorNumeric(c('darkgreen','gold1','brown'),
+                             domain=preds$pred.temp)
+preds %>% 
+  leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  addCircles(lng=~lon, lat=~lat, color=~pred.temp.pal(pred.temp),
+             opacity=.7, fillOpacity=.7, radius=1e3) %>% # points w/ 1KM radius
+  addLegend('bottomleft', pal=pred.temp.pal, values=preds$pred.temp,
+            title="Pred. Temp", opacity=.7)
+```
+
