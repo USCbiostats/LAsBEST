@@ -1,16 +1,15 @@
 ---
 title: "spatial1"
-author: "Meredith Franklin"
-date: "7/1/2021"
+author: "Xiaozhe Yin"
+date: '2022-06-27'
 output: html_document
 ---
 
-# {.tabset}  
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Setup {.tabset}
+## {.tabset}
 
 ### Packages and Data
 
@@ -23,7 +22,6 @@ library(leaflet) # plotting spatial data
 library(htmlwidgets) # to save html maps that are interactive
 library(sf) # handle simple features objects
 library(ggmap) # for querying google API for geocoding
-
 ```
 
 - We create a set of geospatial points representing cities and their populations.
@@ -106,8 +104,8 @@ Now let's import some external geospatial data (PM2.5 concentrations from monito
 
 
 ```{r pmdat}
-pm25 = read.csv("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/pm25_ca_2018.csv")
-pm25.sites = read.csv("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/pm25_sites.csv")
+pm25 = read.csv("/Users/yinxiaozhe/Downloads/summer_class/pm25_ca_2018.csv")
+pm25.sites = read.csv("/Users/yinxiaozhe/Downloads/summer_class/pm25_sites.csv")
 pm25 %>% head()
 pm25.sites %>% head()
 ```
@@ -115,7 +113,7 @@ pm25.sites %>% head()
 We will look at the days where there were major forest fires in November 2018
 
 ```{r pm-maps}
-pm25.pal = colorNumeric(c('darkgreen','goldenrod','brown','brown','brown'),
+pm25.pal = colorNumeric(c('darkgreen','goldenrod','brown'),
                         domain=pm25$pm25)
 merge(pm25 %>% filter(date=='11/10/18'), pm25.sites, by='site_id') %>% 
   st_as_sf(coords=c('longitude','latitude'), crs=4326) %>% 
@@ -126,6 +124,7 @@ merge(pm25 %>% filter(date=='11/10/18'), pm25.sites, by='site_id') %>%
   addLegend('bottomleft', pal=pm25.pal, values=pm25$pm25,
             title='PM2.5 (ug/m3)', opacity=1)
 ```
+
 
 
 ### Mapping Areal Data
@@ -143,12 +142,13 @@ For example, the shapefile `ca_counties.shp` and its related files consist of po
 
 
 ```{r shp}
-ca.counties = st_read("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/shapes/ca_counties.shp")
+ca.counties = st_read("//Users/yinxiaozhe/Downloads/summer_class/shapes/ca_counties.shp")
 ca.counties
 ca.counties %>% class()
 ```
 
 ```{r geom-polygons}
+
 ca.counties %>% 
   leaflet() %>% 
   addProviderTiles('OpenStreetMap') %>% 
@@ -174,13 +174,15 @@ ca.counties %>%
 ### Mapping Lines/Polylines
 
 Shapefiles can also represent lines. For example, we can look at the LA Metro Rail lines
+
 ```{r geom-lines}
-metro.rails = st_read("/Users/meredith/Dropbox (University of Southern California)/Courses/LAsBEST/2021/lab/shapes/metro_lines.shp")
+metro.rails = st_read("//Users/yinxiaozhe/Downloads/summer_class/shapes/metro_lines.shp")
 line.pal = colorFactor(c('blue','cornflowerblue','darkgoldenrod','darkgreen','firebrick'),
                        domain=metro.rails$line)
 metro.rails %>%
   leaflet() %>% 
-  addProviderTiles('Wikimedia') %>% 
+  # addProviderTiles('Wikimedia') %>% 
+  addProviderTiles(providers$Esri.WorldStreetMap) %>% 
   addPolylines(color=~line.pal(line), label=~line, opacity=.9)
 ```
 
