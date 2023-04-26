@@ -23,5 +23,7 @@ For more information, visit [this website](https://www.nhlbi.nih.gov/grants-and-
 
 # Previous iterations
 
+The contents of the Summer 2022 version of the class can be found
+[here](https://github.com/USCbiostats/LAsBEST/tree/summer2022).
 The contents of the Summer 2021 version of the class can be found
 [here](https://github.com/USCbiostats/LAsBEST/tree/summer2021).
