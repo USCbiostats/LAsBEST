@@ -18,12 +18,13 @@ recordings by clicking on **USC Zoom Pro Meeting > Cloud recordings**.
 
 ## Funding
 
-This program is funded under the Summer Institutes in Biostatistics (SIBS) program of the National Heart, Lung, and Blood Institute [Grant #:R25 HL147236].
+This Summer Institute in Biostatistics (SIBS) and Data Science program is sponsored jointly by the National Heart, Lung, and Blood Institute (NHLBI) and the National Institute of Allergy and Infections Diseases (NIAID) [Grant #:R25 HL161788].
 For more information, visit [this website](https://www.nhlbi.nih.gov/grants-and-training/summer-institute-biostatistics). We also thank the generous support of the Dean of the Keck School of Medicine of USC and the USC Norris Comprehensive Cancer Center.
 
 # Previous iterations
 
 The contents of the Summer 2022 version of the class can be found
 [here](https://github.com/USCbiostats/LAsBEST/tree/summer2022).
+
 The contents of the Summer 2021 version of the class can be found
 [here](https://github.com/USCbiostats/LAsBEST/tree/summer2021).
