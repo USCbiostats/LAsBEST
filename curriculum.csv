@@ -1,40 +1,40 @@
-Week,Theme,Mon,Tue,Wed,Thu,Fri
-1 (6/13),**Descriptive**,,,,,
-,Room,SSB-115,,,,
-,10:00 AM,Mindfulness Monday (MM) /  Intro to Biostats [SE],How to Develop a Research Question [SE],Population Sampling [JP],Descriptive Stats [JP],Intro: DAG/Causal inference [EG]
-,11:00 AM,Responsible Conduct of Research ,,Estimation,,
-,Lunch break,,Lunch w/Faculty,,,
-,1:00 PM,3-min elevator pitch [RW],1:30-4:30 Recording/,A: Pop sampling [TAs],Create Table 1 [TAs],Share Table 1 [TAs]
-,2:00 PM,Children's Health Study [JG],Data Collection/Analysis,Proj Research Q; Distribute data,,Post Table 1 on Slack by midnight 
-2 (6/20),**Multivariable**,,,,,
-,Room,,SSB-115,SSB-117,SSB-114,SSB-117
-,10:00 AM,**Juneteenth**,Bivariate Descriptive Stats [EK],Introduction To Linear Regression  [TP],Multiple Linear Regression/Model Building [TP],Share Modeling Strategies
-,11:00 AM,**HOLIDAY**,"Hypothesis Testing [KS,TAs]",,,Family Feud
+﻿Week,Theme,Mon,Tue,Wed,Thu,Fri
+1 (6/19),**Descriptive**,,,,,
+,Room,,SSB-116,SSB-116,SSB301,MCH 159 (am)/SSB301 (pm)
+,10:00 AM,**JUNETEENTH**,Intro to Biostats/Data science/Projects,How to Develop a Research Question ,Population Sampling,Descriptive Stats
+,11:00 AM,**HOLIDAY**,(cont.),(cont.),Estimation,(cont.)
+,Lunch break,,faculty/student luncheon,,,
+,1:00 PM,,,1:00-4:00 Recording/PICOT Activity/computer security,A: Pop sampling,Create Table 1 [TAs]
+,2:00 PM,,Responsible Conduct of Research,,Distribute project data ,(cont.)
+2 (6/26),**Multivariable**,,,,,
+,Room,SSB-114,SSB-116,SSB-116,SSB-116,SSB-116
+,10:00 AM,Mindfulness Monday (MM) ,Intro: DAG/Causal inference,Introduction To Linear Regression,Multiple Linear Regression/Model Building,Share Modeling Strategies
+,11:00 AM,Bivariate Descriptive Stats ,,,,Family Feud
 ,Lunch break,,,,,
-,1:00 PM,,2-sample tests,A: Linear reg (ggpairs) [TAs],Confounding [SSB-301],A: Model building in CHS
-,2:00 PM,,How to read a journal article [NM],A: Linear Regr. in CHS [TAs],Model building in CHS,(cont.)
-3 (6/27),**Spatial**,,,,,
-,Room,SSB-114,SSB-115,SSB-115,SSB-115,SSB-115
-,10:00 AM,MM / Guest: Prof. Albert Farias,Logistic Regression [EK],     Intro to Spatial Data & GIS[XY],Visualizing Spatial Data [XY],Subset analysis in CHS [TAs]
-,11:00 AM,"A: Share CHS models [JG, TAs]",,,,
+,1:00 PM,How to read a journal article,Hypothesis Testing,A: Linear reg (ggpairs) ,Confounding,Project Time
+,2:00 PM,Share Table 1; Post Table 1 on Slack by midnight ,2-sample tests,Project Time ,Project Time ,(cont.)
+3 (7/3),**Spatial**,,,,,
+,Room,,,SSB-116,SSB-116,SSB-116
+,10:00 AM,**HOLIDAY**,**JULY 4**,Logistic Reg ,Intro to Spatial Data ,Getting into Grad School
+,11:00 AM,,**HOLIDAY**,,,Write a Personal Statement 
+,Lunch break,,,lunch w/Grad students,,
+,1:00 PM,,,Project Time,A: Maps of CHS data ,Work on Projects
+,2:00 PM,,,(cont.),(cont.),
+4 (7/10),**Data Science**,,,,,
+,10:00 AM,MM /Guest: Claradina Soto,Supervised Leaning ,TBA,Cross Validation ,Deep Learning
+,11:00 AM,,(cont.),,Racism in ML,(cont.)
 ,Lunch break,,,,,
-,1:00 PM,A: Refine Models [TAs],A: LR in CHS [TAs],A: GIS [TAs],A: Maps of CHS data [TAs],Scientific Presentations [CPS]
-,2:00 PM,(cont.),(cont.),(cont.),(cont.),Start Poster Layouts [TAs]
-4 (7/4),**GWAS**,,,,,
-,10:00 AM,**USC HOLIDAY**,Work on Poster Layouts [TAs],Clinical Trials,GWAS/Population Structure [DC],Mouse Models vs Human Studies
-,11:00 AM,,,,,meet w/Grad students
-,Lunch break,,,,,lunch w/Grad students
-,1:00 PM,,Share results,Revise Posters & re-post to Slack,A: lab,Getting into Grad School [RW]
-,2:00 PM,,Finish Posters & Post to Slack,(cont.),(cont.),Write a Personal Statement 
-5 (7/11),**Data Science**,,,,,
-,10:00 AM,MM / Guest: Prof. Claradina Soto,Supervised Leaning [JP],Health Disparities [MS],Cross Validation [JP],Deep Learning
-,11:00 AM, Faculty Review Posters,(cont.),(cont.),Racism in ML,(cont.)
+,1:00 PM,Scientific Presentations ,A: SL ,,Health Disparities ,Share results
+,2:00 PM,Start Poster Layouts,(cont.),,,Finish Posters & Post to Slack
+5 (7/17),**GWAS**,,,,,
+,10:00 AM,MM /Guest: Prof. Albert Farias,GWAS/Population Structure ,TBA,Write 5-min poster & submit ,TBA
+,11:00 AM,Present Projects to Group,(cont.),,,
 ,Lunch break,,,,,
-,1:00 PM,A: Finalize Posters & submit,(cont.),Write 5-min poster & submit [TAs],Practice Interviews/Poster,Practice Interviews/Poster
-,2:00 PM,,return Posters,(cont.),(cont.),(cont.)
-6 (7/18),**Networking**,,,,,
-,10:00 AM,Field Trip,Recording Rm ,meet Amgen employees,Poster,
-,11:00 AM,(cont.),(cont.),(TBA),Presentation session,
+,1:00 PM,Present projects to Group,A: lab,,Practice Interviews/Poster,Practice Interviews/Poster
+,2:00 PM,A: Finalize Posters & submit,(cont.),,(cont.),(cont.)
+6 (7/24),**Networking**,,,,,
+,10:00 AM,Recording Rm ,Programming with ChatGPT,FIELD TRIP,Career Day,Poster
+,11:00 AM,(cont.),department picnic,,(TBA),Presentation session
 ,Lunch break,,,,,
-,1:00 PM,,Recording Rm ,meet Kaiser employees,Exit Survey,
-,2:00 PM,,,LinkedIn,,
+,1:00 PM,Recording Rm ,,,,Exit Survey
+,2:00 PM,(cont.),,,,
