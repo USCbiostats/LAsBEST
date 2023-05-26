@@ -6,7 +6,7 @@
 # LAsBEST
 
 LA's Biostatistics Education Summer Training program at
-[USC](https://lasbest.usc.edu/) (LA's BEST@USC)
+[USC](https://lasbest.usc.edu/) (LA's BEST@USC).
 
 The up-to-date version of the Curriculum is [here](curriculum.csv). You can also
 access the official class website [here](https://USCBiostats.github.io/LAsBEST).
