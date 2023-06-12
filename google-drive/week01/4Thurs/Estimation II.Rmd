@@ -1,0 +1,289 @@
+---
+title:  "<span style=color:#003399> Introduction to Inference </span>"
+author: "Adapted by Juan Pablo Lewinger from OpenIntro Statistics by Diez et al."
+date: "6/15/2022"
+output: ioslides_presentation
+widescreen: true
+smaller: true
+keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 1, digits = 2)
+```
+## <span style="color:#660066"> Estimating a population proportion </span> {.smaller} 
+
+Example: 1,000 people poll shows US President approval rating is 39%
+
+- 39% is an *estimate* of the true unknown approval rating among the entire adult US population, which is the parameter of interest.
+
+- Unless we ask and get answer from every adult in the US (close to impossible), the true approval rating will remain unknown. 
+
+- We denote true unknown approval rating parameter by $p$ and its estimate (39% = 0.39) by $\widehat{p}$
+
+- The error due to sampling is the difference between the parameter and its estimate: $\, p - \widehat{p}$
+
+- If we took a different sample we'll get a different estimate and a different error
+
+- What can we say in general about the error when estimating a proportion? 
+
+## <span style="color:#660066"> Poll simulation </span> 
+
+- Assume the true approval rating is 41% ($p=0.41$)
+
+- Simulate turnout of 160,000,000 voters (2020 Elections)
+
+- Simulate a poll: draw a random sample of 1,000 individuals
+
+- Calculate the proportion in the sample
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+```{r}
+pop_size <- 160000000; poll_size = 1000
+
+USpop <- c(rep("Approve", 0.41*pop_size), rep("Disapprove", 0.59*pop_size))
+
+length(USpop)
+
+head(USpop); tail(USpop)
+
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+```{r message=TRUE, warning=FALSE, include=FALSE}
+options(digits = 2)
+```
+
+```{r}
+set.seed(2022)
+
+poll <- sample(USpop, poll_size)
+
+head(poll)
+
+table(poll)
+
+p_hat <- sum(poll=="Approve")/poll_size
+
+p_hat
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+If we took a different sample we'd get a different estimate:
+
+```{r}
+poll2 <- sample(USpop, poll_size)
+
+p_hat2 <- sum(poll2=="Approve")/poll_size
+
+p_hat2
+
+
+poll3 <- sample(USpop, poll_size)
+
+p_hat3 <- sum(poll3=="Approve")/poll_size
+
+p_hat3
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+- To get a sense of the distribution of possible values of $\widehat{p}$ let's repeat the simulation many times, say 10,000, and plot a histogram of the values of $\widehat{p}$ that we get:
+
+
+```{r}
+sample_proportions <- replicate(10000, sum(sample(USpop, poll_size) == "Approve")/poll_size)
+
+head(sample_proportions)
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+```{r, fig.height = 3.5, fig.width = 7, fig.align = "center"}
+hist(sample_proportions , col='steelblue3', xlab="sample proportions (p_hat)", main="", cex.lab=1.5, cex.axis=1.5)
+
+c(mean = mean(sample_proportions), sd = sd(sample_proportions))
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+- This is called the sampling distribution of the estimate $\widehat{p}$
+
+- The mean of the distribution, $\,\mu_{\widehat{p}}$, is `r round(mean(sample_proportions), 3)`, the same as the true population parameter! 
+
+- This means that on average the population proportion estimates the true proportion without bias
+
+- The spread (sd), called the standard error of $\,\widehat{p}$, and denoted $\,SE_{\widehat{p}} \,$ is quite small (`r sd(sample_proportions)`). This is the average error we make when we estimate the parameter $\,p$ by its estimate $\widehat{p}$.
+
+- When the true proportion is $p=0.41$ and the sample size $n=1,000$ the sample proportion tends to give a very good estimate of the population proportion
+
+- The sampling distribution is symmetric and bell shaped, it looks like a normal distribution.
+
+**VERY IMPORTANT**: The sampling distribution is never observed in real applications because we take a single sample of size $n$. Here we are simulating would would happen if we hypothetically took many, many samples of size $n$. 
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+- What would the sampling distribution look like if the size of the sample was $\,n=50$ instead of $\,n=1,000$?
+
+```{r}
+
+poll_size = 50
+
+sample_proportions <- replicate(10000, sum(sample(USpop, poll_size) == "Approve")/poll_size)
+
+head(sample_proportions)
+```
+
+## <span style="color:#660066"> Poll simulation </span> {.smaller} 
+
+```{r, fig.height = 3.5, fig.width = 7, fig.align = "center"}
+hist(sample_proportions , col='steelblue3', xlab="sample proportions (p_hat)", main="", cex.lab=1.5, cex.axis=1.5)
+
+c(mean = mean(sample_proportions), sd = sd(sample_proportions))
+```
+
+## <span style="color:#660066"> Poll simulation </span> 
+
+- The mean of the sampling distribution ($\,\mu_{\widehat{p}}$) again equals the true population parameter $p=0.41$
+
+- However, the standard error, $\,SE_{\widehat{p}} \,$, is now about 4.5 times larger! (0.071 vs 0.016)
+
+- The larger the sample size the smaller the error (the error decreases proportionally to $\frac{1}{\sqrt(n)}$)
+
+## <span style="color:#660066"> Central Limit Theorem (CLT) </span> {.smaller} 
+When the sample size  is sufficiently large, the sample proportion $\,\widehat{p}$ will tend to follow a normal distribution with the following mean and standard deviation:
+
+$\mu_{\widehat{p}} = p$ 
+
+$SE_{\widehat{p}} = \sqrt{\frac{p(1-p)}{n}}$
+
+In order for the Central Limit Theorem to hold, the sample size is typically considered sufficiently large when:
+
+$np \ge 10$ 
+
+and 
+
+$n(1-p) \ge 10$ 
+
+This is called the success-failure condition.
+
+## <span style="color:#660066"> Central Limit Theorem (CLT) </span> {.smaller} 
+
+In our scenario $\,p=0.41$ so:
+
+$np = 1000 \times 0.41 = 410 > 10$
+
+and 
+
+$n(1-p) = 1000 \times 0.59 = 590 > 10$ 
+
+So the Central Limit Theorem Holds with:
+
+
+$\mu_{\widehat{p}} = 0.41$
+
+$\,SE_{\widehat{p}} = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.41 \times (1-0.41)}{1000}} = 0.016$ 
+
+
+These CLT-based calculations of the mean of the sample distribution and the standard error are consistent with our simulation results.
+
+The CLT allows us to theoretically derive the standard error of sample distributions (no need to simulate)!
+
+## <span style="color:#660066"> Confidence interval for a proportion </span> {.smaller} 
+
+- When we estimate a proportion we can report the 'point estimate' $\widehat{p}$ along its standard error, which quantifies the uncertainty about the estimate.
+
+- A point estimate will never 'hit' the true parameter exactly
+
+- So, we would like to provide a range of values, an interval, that contains the true parameter with high confidence
+
+- We build the confidence interval around the most plausible value, the sample proportion
+
+- When the central limit applies, the sampling distribution is close to a normal distribution
+
+- And normal distribution always has 95% of the data within 1.96 standard deviations of the mean
+
+- So we construct a 95% confidence interval as:
+
+  $\,\,\,\,\, Point \, Estimate \pm 1.96 \times SE$
+
+
+   $\,\,\,\,\,  \widehat{p} \pm 1.96 \times \sqrt{\frac{\widehat{p} (1-\widehat{p})}{n}}$
+
+## <span style="color:#660066"> Confidence interval for a proportion </span> {.smaller} 
+
+In the presidential approval example (first poll): 
+
+$\widehat{p} = 0.38$
+
+$\,\widehat{SE}_{\widehat{p}} = \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}} = \sqrt{\frac{0.38 \times (1-0.38)}{1000}} = 0.015$ 
+
+95% CI: $\,\,\,\,\, \widehat{p} \pm 1.96 \times SE_{\widehat{p}} = 0.38 \pm 1.96 \times 0.015 = (0.351, 0.409)$
+
+If the sample size was $n=50$ instead:
+
+$\,\widehat{SE}_{\widehat{p}} = \sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}} = \sqrt{\frac{0.42 \times (1-0.42)}{50}} = 0.07$ 
+
+95% CI: $\,\,\,\,\, \widehat{p} \pm 1.96 \times SE_{\widehat{p}} = 0.42 \pm 1.96 \times 0.07 = (0.283, 0.557)$
+
+## <span style="color:#660066"> Interpretation of a 95% confidence interval </span> 
+
+**Suppose we took many samples of size $n$ and built a 95% confidence interval from each. Then about 95% of those intervals would contain the parameter $p$**
+
+**VERY IMPORTANT** In a real application/analysis we draw a single sample of size $\,n$, compute a single point estimate, and a single confidence interval based on the sample. Here, using theory (CLT) and simulations, we are exploring what would happen if we hypothetically repeated the process of drawing a sample and computed estimates and CIs many times.
+
+## <span style="color:#660066"> Confidence interval for a proportion </span> {.smaller}
+
+50 95% confidence intervals based on 50 different samples of size $n=1,000$
+```{r, fig.height = 5, fig.width = 6, fig.align = "center", echo=FALSE}
+
+n = 1000
+p = 0.41
+se = sqrt(p*(1-p)/n)
+replicates = 50
+
+plot(c(p - 4.5*se, p + 4.5*se), c(1, replicates), type = 'n', yaxt='n', ylab=NA, xlab='95% CI', cex.lab=2, cex.axis=2)
+
+nmiss = 0
+for (i in 1:replicates){
+	x = rbinom(1, n, p)
+	p_hat = x/n
+	se = sqrt(p_hat * (1- p_hat)/n)
+	hit = (p_hat - 1.96*se < p) & (p < p_hat + 1.96*se)
+	if (!hit) color = 'red' else color='grey40'
+	segments(p_hat - 1.96*se, i, p_hat + 1.96*se, i, col=color, lwd=4)
+	nmiss = nmiss + !hit
+}	
+abline(v=p, col='steelblue', lwd=4)
+```
+
+## <span style="color:#660066"> Estimating a population mean</span> {.smaller}
+
+- We estimate the population mean $\mu$ by the population sample $\, \bar{x}$
+
+- The CLT also applies to the sample mean (in the vast majority of cases):
+
+When the sample size is sufficiently large, the sample mean $\, \bar{x}$ will tend to follow a normal distribution with the following mean and standard deviation:
+
+$\mu_{\bar{x}} = \mu$ 
+
+$\,SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
+
+where $\, \sigma$ is the population standard deviation
+
+
+## <span style="color:#660066"> Confidence interval for the mean </span> {.smaller}
+
+$\,\,\,\,\, Point \, Estimate \pm 1.96 \times SE$
+
+
+$\,\,\,\,\,\bar{x} \pm 1.96 \times \frac{\widehat{\sigma}}{\sqrt{n}}$
+
+where $\,\widehat{\sigma}$ is the sample standard deviation, which estimates the population standard deviation $\,\sigma$
+
+
+
