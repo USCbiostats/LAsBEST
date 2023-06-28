@@ -1,6 +1,6 @@
 ---
 title: "Simple Linear Regression"
-date: "6/22/2021"
+date: "6/28/2023"
 output: html_document
 ---
 
@@ -28,8 +28,7 @@ chol = chol %>%
 
 First look at scatterplots:
 ```{r scatterplot}
-ggplot(chol, aes(x=bmi_new,y=tg)) +
-  geom_point()
+ggplot(chol, aes(x=bmi_new,y=tg)) + geom_point()
 ```
 
 Correlation, and p-value for correlation
@@ -86,13 +85,15 @@ ggplot(data.frame(resids, preds), aes(x=preds, y=resids)) +
 Normality can be assessed on the histogram and the Q-Q plot of the residuals:
 ```{r resids-hist}
 # histogram plot with density overlaid with a normal curve
+
 ggplot(data.frame(resids), aes(x=resids)) +
-  geom_histogram(aes(y=..density..), bins=30) +
+  geom_histogram(aes(y=after_stat(density)), bins=30) +
   stat_function(fun=dnorm, args=list(mean=mean(resids), sd=sd(resids)), 
                 col="red", size=1)
+
 # qqplot
 ggplot(data.frame(resids), aes(sample = resids)) +
-  geom_qq_line(col="red", size=1) + 
+  geom_qq_line(col="red", linewidth=1) + 
   geom_qq()
 ```
 
