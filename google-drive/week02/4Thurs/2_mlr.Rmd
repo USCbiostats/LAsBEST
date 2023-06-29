@@ -1,6 +1,6 @@
 ---
 title: "Multiple Linear Regression"
-date: "6/24/2021"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
@@ -16,12 +16,13 @@ Using the cholesterol dataset, creating a categorical variable and using it in a
 
 First load the cholesterol data again and plot cholesterol vs age
 ```{r csv, warning=FALSE}
-data.dir<-gsub('/labs', '/data', getwd())
-print(data.dir)
+#data.dir<-gsub('/labs', '/data', getwd())
+#print(data.dir)
 ################################################################
 ## change data.dir to the dir where you save the chol.csv file. 
 ################################################################
-chol<-read.csv(paste0(data.dir, '/chol.csv'))
+#chol<-read.csv(paste0(data.dir, '/chol.csv'))
+chol<-read.csv('../3Wed/chol.csv')
 names(chol)
 dim(chol)
 ggplot(chol, aes(x=age,y=chol))+
