@@ -1,0 +1,199 @@
+---
+title: "spatial lab"
+author: "ks"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## {.tabset}
+
+### Packages and Data
+
+Install the following packages and set the directory where data are located:
+
+```{r pkgs, message=F, warning=F}
+library(ggplot2)
+if (!require(dplyr)) {install.packages("dplyr"); library(dplyr)}
+
+library(leaflet) # plotting spatial data
+library(htmlwidgets) # to save html maps that are interactive
+library(sf) # handle simple features objects
+```
+
+
+- We create a set of geospatial points representing cities and their populations.
+
+
+```{r data, message=F, warning=F}
+cities <- read.csv(textConnection("
+city,lat,lon,pop
+Boston,42.3601,-71.0589,645966
+Hartford,41.7627,-72.6743,125017
+New York City,40.7127,-74.0059,8406000
+Philadelphia,39.9500,-75.1667,1553000
+Pittsburgh,40.4397,-79.9764,305841
+Providence,41.8236,-71.4222,177994
+"))
+cities
+```
+
+- External data 
+
+- `pm25_ca_2018.csv`
+- `pm25_sites.csv`
+- `shapes` <- This is a folder
+
+
+### Mapping Point Data
+
+Let's plot the cities on a map using the leaflet package.
+
+```{r pointsmap1}
+  leaflet(cities) %>% 
+  addTiles() %>%
+  addCircles(lng = ~lon, lat = ~lat, 
+             color='firebrick', fillOpacity=1, opacity=1, radius=700)
+
+```
+
+Try changing the basemap with different "provider tiles" using addProviderTiles option (e.g., Wikimedia, CartoDB.Positron) https://leaflet-extras.github.io/leaflet-providers/preview/
+
+```{r pointsmap2}
+
+leaflet(cities) %>% 
+  addProviderTiles('Wikimedia') %>% 
+  addCircles(lng = ~lon, lat = ~lat,
+             fillOpacity=1, opacity=1, radius=700)
+
+```
+
+
+Now let's make the circle size proportional to the population of each city
+
+```{r pointsmap3}
+
+leaflet(cities) %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(lng = ~lon, lat = ~lat, weight = 1, 
+             color = "purple", opacity = 1,
+             radius = ~sqrt(pop) * 40, popup = ~city)
+
+```
+
+
+Finally let's colour the circle size differently by population, add a legend, and add popups with labels.
+
+```{r pointsmap4}
+
+pop.pal = colorNumeric(c('blue','brown','brown'), domain=cities$pop)
+leaflet(cities) %>% 
+  addTiles() %>%
+  addCircles(lng = ~lon, lat = ~lat, weight = 20, 
+             color = ~pop.pal(pop), opacity = 1,
+             label=~paste0(city, ': ', pop)) %>%
+  addLegend(position = "bottomright", pal = pop.pal, values = ~pop,
+            title="Population",opacity=1)
+
+```
+
+Hover your cursor over the points to see the label appear.
+
+
+Now let's import some external geospatial data (PM2.5 concentrations from monitoring stations) and map them.
+
+- Data source: [EPA PM2.5](https://www.epa.gov/outdoor-air-quality-data/download-daily-data)
+
+
+```{r pmdat}
+pm25 = read.csv("pm25_ca_2018.csv")
+pm25.sites = read.csv("pm25_sites.csv")
+pm25 %>% head()
+pm25.sites %>% head()
+```
+
+We will look at the days where there were major forest fires in November 2018.   saveWidget() will save the interactive plot to an *.html file.
+
+```{r pm-maps}
+pm25.pal = colorNumeric(c('darkgreen','goldenrod','brown'),
+                        domain=pm25$pm25)
+dat <- merge(pm25 %>% filter(date=='11/10/18'), pm25.sites, by='site_id') %>% 
+  st_as_sf(coords=c('longitude','latitude'), crs=4326) 
+ 
+m =  leaflet(dat) %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addCircles(label=~paste0(pm25, ' ug/m3'), color=~pm25.pal(pm25),
+             opacity=1, fillOpacity=1, radius=500) %>%
+  addLegend('bottomleft', pal=pm25.pal, values=pm25$pm25,
+            title='PM2.5 (ug/m3)', opacity=1)
+m
+saveWidget(m, file=c("ca_map.html"))
+```
+
+### Mapping Areal Data
+
+Typically come in Polygon geometries. They aggregate/summarize values (e.g., population, income) over geographic divisions (e.g., countries, states, counties, census blocks, etc.).
+
+Areal data are most often stored as shapefiles (.shp). Shapefiles usually come in a set of at least 4 files:
+
+- `.shp`: main shapefile
+- `.shx`: spatial index
+- `.dbf`: dBase file which stores the non-spatial columns
+- `.prj`: definition of the projection of the spatial data
+
+For example, the shapefile `ca_counties.shp` and its related files consist of polygons for California counties. We read shapefiles with the `st_read()` function from the `sf` package:
+
+
+```{r shp}
+ca.counties = st_read("shapes/ca_counties.shp")
+ca.counties
+ca.counties %>% class()
+```
+
+```{r geom-polygons}
+
+ca.counties %>% 
+  leaflet() %>% 
+  addProviderTiles('OpenStreetMap') %>% 
+  addPolygons(weight=1, fillOpacity=.25, label=~county)
+```
+
+An `sf` object is also a `data.frame` so most of the time typically `data.frame` operations work the same way. `geometry` is the unique column to look out for.
+
+You can also create your own `sf` objects, most typically for Point data when given coordinates (longitude and latitude) of the features, using the `st_as_sf()` function.
+
+
+
+```{r areal-data}
+pop.pal = colorNumeric(c('beige','brown','brown'),
+                       domain=ca.counties$population)
+ca.counties %>% 
+  leaflet() %>% 
+  addProviderTiles('CartoDB.Positron') %>% 
+  addPolygons(fillColor=~pop.pal(population), weight=.5, fillOpacity=.9,
+              label=~paste0(county, ': ', population))
+```
+
+### Mapping Lines/Polylines
+
+Shapefiles can also represent lines. For example, we can look at the LA Metro Rail lines
+
+```{r geom-lines}
+metro.rails = st_read("shapes/metro_lines.shp")
+line.pal = colorFactor(c('blue','cornflowerblue','darkgoldenrod','darkgreen','firebrick'),
+                       domain=metro.rails$line)
+metro.rails %>%
+  leaflet() %>% 
+  # addProviderTiles('Wikimedia') %>% 
+  addProviderTiles(providers$Esri.WorldStreetMap) %>% 
+  addPolylines(color=~line.pal(line), label=~line, opacity=.9)
+```
+
+
+
+Try your own points of interest, different basemaps, different colour schemes, submit some maps.
+
+
