@@ -1,5 +1,5 @@
 ---
-title: "spatial lab"
+title: "Spatial lab"
 author: "ks"
 date: "`r Sys.Date()`"
 output: html_document
@@ -18,10 +18,13 @@ Install the following packages and set the directory where data are located:
 ```{r pkgs, message=F, warning=F}
 library(ggplot2)
 if (!require(dplyr)) {install.packages("dplyr"); library(dplyr)}
+# plotting spatial data
+if (!require(leaflet)) {install.packages("leaflet"); library(leaflet)}  
+# to save html maps that are interactive
+if (!require(htmlwidgets)) {install.packages("htmlwidgets"); library(htmlwidgets)}  
+# handle simple features objects
+if (!require(sf)) {install.packages("sf"); library(sf)} 
 
-library(leaflet) # plotting spatial data
-library(htmlwidgets) # to save html maps that are interactive
-library(sf) # handle simple features objects
 ```
 
 
