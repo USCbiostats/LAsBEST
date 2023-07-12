@@ -1,0 +1,51 @@
+---
+title: "Logistic regression for machine learning lab"
+output:
+  html_document:
+    df_print: paged
+---
+
+Learning objectives.
+
+- Perform classification with logistic regression in ``R``.
+- Assess performance of a binary classifier 
+
+The goal of this exercise is to fit several logistic regression classifiers using the Ischemic Stroke data set. For your convenience the code to split the data into training and test sets is provided below
+
+**Dataset notes:**
+According to the Mayo Clinic, "ischemic stroke occurs when a blood clot blocks or narrows an artery leading to the brain. A blood clot often forms in arteries damaged by the buildup of plaques (atherosclerosis). It can occur in the carotid artery of the neck as well as other arteries. This is the most common type of stroke." (https://www.mayoclinic.org/diseases-conditions/stroke/symptoms-causes/syc-20350113#:~:text=Ischemic%20stroke%20occurs%20when%20a,most%20common%20type%20of%20stroke.)
+
+a. When splitting the data into training, validation and testing or classification problems it is important to ensure each set retains approximately the same proportion of positive and negative examples as the full data. Split the data into training (70%), and validation (30%), but keeping the proportion of positive and negative examples roughly the same in the training and validation sets. This can be accomplished by sampling in a stratified manner, i.e. sampling 70/30 within the negative and the positive classes. The code below performs stratified splitting. Make sure you understand each step.
+
+```{r eval=FALSE, include=FALSE}
+set.seed(303)
+n = nrow(stroke)
+positives = (1:n)[stroke$Stroke=='Yes']
+negatives = (1:n)[stroke$Stroke=='No']
+
+positives_train = sample(positives, floor(0.7*length(positives)))
+positives_test = setdiff(positives, positives_train)
+
+negatives_train = sample(negatives, floor(0.7*length(negatives)))
+negatives_test = setdiff(negatives, negatives_train)
+
+stroke_train = stroke[c(positives_train, negatives_train), ]
+stroke_test = stroke[c(positives_test, negatives_test), ]
+
+ntrain = nrow(stroke_train); ntest=nrow(stroke_test)
+
+table(stroke_train$Stroke)
+table(stroke_test$Stroke)
+```
+
+Note: Because of the moderate sample size we will not have a separate test set -- we will learn later in the course about cross-validation, which will allow us to split the data into training and testing only and still perform model selection.
+    
+b. Using the training data, graphically assess each of the predictors using a boxplot for quantitative predictors and a mosaic plot for a categorical predictors. Note: you can use plot to get these graphs. Use for example ``boxplot(your_predictor ~ Stroke, data=stroke_train)`` to get a boxplot for a quantitative predictor and ``plot(Stroke, your_predictor, data=stroke_train)`` for a categorical predictor to get a mosaic plot. Visually determine the 3 most most predictive **imaging features**, i.e. the imaging features that best separate the stroke=YES vs. stroke='No' classes. (This is an informal procedure since a visual assessment is inherently subjective. There are methods to perform feature selection in a more systematic way).
+    
+c. Build classifiers of increasing complexity by including: i) age, sex, and smoking history; ii) all the previous features  + the clinical variables AtrialFibrillation, CoronaryArteryDisease, DiabetesHistory, HypercholesterolemiaHistory, and HypertensionHistory; iii) all the previous features + the most predictive imaging feature based on part b; and iv) all the previous features + the next 2 most predictive imaging features.
+
+d. Compute the training and testing misclassification error, sensitivity and specificity for each of the models in c. (Use a probability cutoff = 1/2 for computing sensitivity and specificity)
+
+e. Plot in the same graph the training and test misclassification error as a function of classifier complexity
+
+
