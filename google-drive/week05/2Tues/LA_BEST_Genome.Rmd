@@ -176,4 +176,11 @@ plot(1:nrow(univariate.results), neglog.pvalues,
 abline(h=-log10(0.05/nrow(univariate.results)), lty=2, lwd=2, col=2)
 ```
 
+### Principal Component Analysis
+```{r Genome: Principal Component Analysis}
+PCs <- princomp(AIMs, scores=T)
+PC.score <- PCs$scores
+plot(PC.score[,1], PC.score[,2], col=(1+Pop), pch=16, xlab="PC1", ylab="PC2")
+
+```
 
