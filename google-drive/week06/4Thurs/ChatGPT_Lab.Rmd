@@ -1,0 +1,171 @@
+---
+title: "ChatGPT & R"
+author: "Katelyn Queen"
+date: "2023-07-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ChatGPT
+
+ChatGPT is an artificial intelligence model by OpenAI. Here's what they have to say about it: "We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests."
+
+Many other chat bots already exist and more are being released, however, according to an analysis by Swiss bank UBS, ChatGPT is the fastest-growing app of all time, reaching 100 million users just two months after it's release.
+
+There are many ways to interface chatGPT with R. Today we will use the "gptstudio" package to use it as an RStudio addin.
+
+```{r}
+
+if (!require(gptstudio)) {install.packages("gptstudio"); library(gptstudio)}
+
+```
+
+Once the package is installed click the "Addins" button and option "ChatGPT". The console will then prompt you with the following:   
+! OPENAI_API_KEY is not set.  
+Do you want to set the OPENAI_API_KEY for this session? 
+Type the number to set the OPENAI and you will be asked to enter your ChatGPT API key.
+
+To get an API key, create a ChatGPT account at https://beta.openai.com/signup. Then go to your account settings, "View API Keys" and click "Create new secret key". Paste your created key into the console. Then the ChatGPT window should launch in the Viewer pane.
+
+This version of ChatGPT does not have real-time information available. It will only assist with R programming.
+
+## Titanic
+
+Let's use ChatGPT to do an analysis on the survival of passengers from the Titanic. There is an example dataset "Titanic", which contains "information on the fate of passengers on the fatal maiden voyage of the ocean liner ‘Titanic’, summarized according to economic status (class), sex, age and survival."
+
+The package "titanic" has this data in a long format, making it easier to use for modelling.
+
+First, let's download and look at the structure of the training data. The library is called titanic, and the data titanic_train.
+
+```{r}
+
+if (!require(titanic)) {install.packages("titanic"); library(titanic)}
+
+str(titanic_train)
+
+```
+
+Say now that we want to look at the distribution of these classes of the passengers but don't know how. Let's ask ChatGPT. Be sure to be specific in your prompting. 
+
+```{r}
+
+
+```
+
+Now let's do a visualization of the same data! 
+
+```{r}
+
+
+```
+
+What if I want to add the counts from the table to bars?
+
+```{r}
+
+```
+
+
+Now let's look at if passenger class is related to survival. Let's start with a visualization.
+
+```{r}
+
+```
+
+Those colors are a little bright. Let's change the colors to something a little darker and add a title. 
+
+```{r}
+
+```
+
+Finally, let's add the count values for each class and survival status.
+
+```{r}
+
+```
+
+
+Now let's test if there is a statistically significant difference in survival rates by passenger class.
+
+```{r}
+
+```
+
+What are the results of the test? 
+
+A chi-square test doesn't identify directionality, just whether there is or is not a difference in one variable based on the value of the other. Let's write a model for this relationship instead. 
+
+```{r}
+
+```
+
+Since the estimate for passenger class is ________, we can say that odds of survival _______ as a passenger's class increases. 
+
+Now, let's focus on predicting survival. How can I make the best model at predicting passenger survival based on the variables I have? 
+
+```{r}
+
+```
+
+That is one model, but now I want to do variable selection so that I have the most predictive model possible. Fill in the steps below based on ChatGPT's response.
+
++ Step 1:
++ Step 2: 
++ Step 3: 
+
+Let's do step one for numeric variables.
+
+```{r}
+
+```
+
+Now let's look at our categorical variables. 
+
+```{r}
+
+```
+
+Great, let's move on to step 2: correlation analysis.
+
+```{r}
+
+```
+
+Now that we have a list of possible predictors, we are ready to move on to actually selecting variables and creating a final model. Be sure to factor all categorical variables so that they are modelled correctly.
+
+```{r}
+
+```
+
+Finally, lets create a table showing the odds ratios and 95% confidence intervals of our final model.
+
+```{r}
+
+```
+
+
+## Challenge Problem
+
+You will be using the CalCOFI data to model the association between water temperature and salinity. The full dataset comes from here - https://www.kaggle.com/datasets/sohier/calcofi?resource=download, but for today, you will be using a cross-sectional piece of the data from 2016.
+
+Context on the data:
+"The CalCOFI data set represents the longest (1949-present) and most complete (more than 50,000 sampling stations) time series of oceanographic and larval fish data in the world. It includes abundance data on the larvae of over 250 species of fish; larval length frequency data and egg abundance data on key commercial species; and oceanographic and plankton data. The physical, chemical, and biological data collected at regular time and space intervals quickly became valuable for documenting climatic cycles in the California Current and a range of biological responses to them. CalCOFI research drew world attention to the biological response to the dramatic Pacific-warming event in 1957-58 and introduced the term “El Niño” into the scientific literature.
+
+The California Cooperative Oceanic Fisheries Investigations (CalCOFI) are a unique partnership of the California Department of Fish & Wildlife, NOAA Fisheries Service and Scripps Institution of Oceanography. The organization was formed in 1949 to study the ecological aspects of the sardine population collapse off California. Today our focus has shifted to the study of the marine environment off the coast of California, the management of its living resources, and monitoring the indicators of El Nino and climate change. CalCOFI conducts quarterly cruises off southern & central California, collecting a suite of hydrographic and biological data on station and underway. Data collected at depths down to 500 m include: temperature, salinity, oxygen, phosphate, silicate, nitrate and nitrite, chlorophyll, transmissometer, PAR, C14 primary productivity, phytoplankton biodiversity, zooplankton biomass, and zooplankton biodiversity."
+
+Further information about each of the columns can be found here - https://calcofi.com/index.php?option=com_content&view=article&id=77:database-tables&catid=73&Itemid=993. Note that many columns have been removed in your version of the dataset due to time constraints.
+
+Your job is to determine the association between water temperature (X, column name T_degC) in degrees celcius and water salinity (Y, column name Salnty) in g/kg. Consider potential confounders and effect modifiers, and check the assumptions of your model. Also create a visualization for the relationship.
+
+```{r}
+
+# read in the data
+cofi <- read.csv("CalCOFI_2016.csv")
+summary(cofi)
+
+```
+
+
