@@ -11,11 +11,6 @@ LA's Biostatistics Education Summer Training program at
 The up-to-date version of the Curriculum is [here](curriculum.csv). You can also
 access the official class website [here](https://USCBiostats.github.io/LAsBEST).
 
-You can access ALL recordings (including the orientation) through blackboard:
-https://blackboard.usc.edu/webapps/login/. You do need to sign in using your USC address.
-Once you are into the Summer Institute in Biostatistics course you access the
-recordings by clicking on **USC Zoom Pro Meeting > Cloud recordings**.
-
 ## Funding
 
 This Summer Institute in Biostatistics (SIBS) and Data Science program is sponsored jointly by the National Heart, Lung, and Blood Institute (NHLBI) and the National Institute of Allergy and Infections Diseases (NIAID) [Grant #:R25 HL161788].
