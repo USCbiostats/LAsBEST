@@ -6,15 +6,15 @@
 # LAsBEST
 
 LA's Biostatistics Education Summer Training program at
-[USC](https://lasbest.usc.edu/) (LA's BEST@USC).
+[**USC**](https://lasbest.usc.edu/) (LA's BEST@USC).
 
-The up-to-date version of the Curriculum is [here](curriculum.csv). You can also
+The up-to-date version of the Curriculum is [**here**](curriculum.csv). You can also
 access the official class website [here](https://USCBiostats.github.io/LAsBEST).
 
 ## Funding
 
 This Summer Institute in Biostatistics (SIBS) and Data Science program is sponsored jointly by the National Heart, Lung, and Blood Institute (NHLBI) and the National Institute of Allergy and Infections Diseases (NIAID) [Grant #:R25 HL161788].
-For more information, visit [this website](https://www.nhlbi.nih.gov/grants-and-training/summer-institute-biostatistics). We also thank the generous support of the Dean of the Keck School of Medicine of USC and the USC Norris Comprehensive Cancer Center.
+For more information, visit [**this website**](https://www.nhlbi.nih.gov/grants-and-training/summer-institute-biostatistics). We also thank the generous support of the Dean of the Keck School of Medicine of USC and the USC Norris Comprehensive Cancer Center.
 
 # Previous iterations
 
