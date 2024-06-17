@@ -1,6 +1,6 @@
 ---
 title: "Spatial lab"
-author: "ks"
+author: "lz"
 date: "`r Sys.Date()`"
 output: html_document
 ---
