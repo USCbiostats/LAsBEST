@@ -1,6 +1,6 @@
 ---
 title: "Simple Linear Regression"
-date: "6/28/2023"
+date: "6/25/2024"
 output: html_document
 ---
 
@@ -17,7 +17,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-Recall that the existing BMI was miscalculated, so we need to re-calculate it. Also generate a factor column for gender.
+The existing BMI was calculated using an OLD method and we need to re-calculate it. Also generate a factor column for gender.
 ```{r csv, warning=FALSE}
 data.dir = gsub('/labs', '/data', getwd())
 chol = read.csv(paste0(data.dir, '/chol.csv'))
