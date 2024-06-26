@@ -16,13 +16,13 @@ Using the cholesterol dataset, creating a categorical variable and using it in a
 
 First load the cholesterol data again and plot cholesterol vs age
 ```{r csv, warning=FALSE}
-#data.dir<-gsub('/labs', '/data', getwd())
-#print(data.dir)
+data.dir<-gsub('/labs', '/data', getwd())
+print(data.dir)
 ################################################################
 ## change data.dir to the dir where you save the chol.csv file. 
 ################################################################
-#chol<-read.csv(paste0(data.dir, '/chol.csv'))
-chol<-read.csv('../3Wed/chol.csv')
+chol<-read.csv(paste0(data.dir, '/chol.csv'))
+#chol<-read.csv('../3Wed/chol.csv')
 names(chol)
 dim(chol)
 ggplot(chol, aes(x=age,y=chol))+
@@ -30,24 +30,24 @@ ggplot(chol, aes(x=age,y=chol))+
 
 ```
 
-Create a categorical variable of age by binning age by quantiles (<25%, 25-50%, 50-75%, >75% of the distribution). First let's do it the dummy variable way, and then let's create a multi-level variable for age category.
-
-Try to regress chol on a multiple-level categorical variable. Start by categorizing age into groups based on the quantiles of the distribution
+Let's first create a categorical variable of age by binning age by quartiles (i.e., 4 groups with nearly identical sample sizes: <25%, 25-50%, 50-75%, >75% of the distribution). Later we'll
+regress chol on the categorical version of the age variable.
 
 ```{r cat}
+quantile(chol$age)
 chol$agegrps <- cut(chol$age, c(0, 11, 17, 35, 70), labels=c("2-11","12-17","18-35","36-68"))
 chol %>% group_by(agegrps) %>% summarize(min(age), max(age))
 chol$agegrps <- factor(chol$agegrps)
 ```
 
-Run the regression with a multi-level predictor, `agegrps`. How would you 
-interpret the coefficient for as.factor(agegrps)12-17? 
+Run the regression with the categorical predictor, `agegrps`. How would you 
+interpret the coefficient for `agegrps12-17`? 
 ```{r mod1}
 mod1 <- lm(chol ~ agegrps, data = chol)
 summary(mod1)
 ```
 
-Now we change the reference category to be 36-68 years old. By comparing the coef of agegrps_new2-11 to the coef of agegrps36-68 from the last 
+Now we change the reference category to be 36-68 years old. By comparing the coef of `agegrps_new2-11` to the coef of `agegrps36-68` from the last 
 model, do you find something interesting?
 ```{r mod2}
 chol$agegrps_new <- relevel(chol$agegrps, "36-68")
@@ -55,7 +55,7 @@ chol$agegrps_new <- as.factor(chol$agegrps_new)
 mod2 <- lm(chol ~ agegrps_new, data = chol)
 summary(mod2)
 ```
-How do you interpret the coefs for agegrps_new2-11, agegrps_new12-17, and agegrps_new18-35? 
+How do you interpret the coefs for `agegrps_new2-11`, `agegrps_new12-17`, and `agegrps_new18-35`? 
 
 
 ## Linear regression with several predictors
@@ -68,7 +68,7 @@ coef<-mod3$coefficients
 resids<-mod3$residuals
 pred<-mod3$fitted.values
 ```
-How do you interpret the coefs for agegrps_new2-11, agegrps_new12-17, and agegrps_new18-35 after we include tg and female? 
+How do you interpret the coefs for `agegrps_new2-11`, `agegrps_new12-17`, and `agegrps_new18-35` after we include tg and female? 
 
 
 We can visualize the residuals using histogram, qqplot, resids vs predicted values by using ggplot2. What assumption about residuals are we checking here by using the histogram? 
