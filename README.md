@@ -10,6 +10,8 @@ LA's Biostatistics Education Summer Training program at
 
 The up-to-date version of the Curriculum is [**here**](curriculum.csv). You can also
 access the official class website [here](https://USCBiostats.github.io/LAsBEST).
+  
+Practice Interview schedule: 7/18-7/19 [here](https://docs.google.com/spreadsheets/d/1qnBaR8pPuZUi1p3DuuIk0305_Hd7_ZiuqYElS-nSGog/edit?usp=sharing)  
 
 Training videos on getting started with LinkedIn:  
 [Optimizing your Profile](https://usc-mphonline.zoom.us/rec/play/6lnL8PBIHM-ERNRvGFDtvIHl9305sBfn0-nzt7dw4mHuiCcu0bjNuuB45WGrpydxH10lNWyukS-rxFAv.jwviKMFfZM8BWy-v?continueMode=true&_x_zm_rtaid=E92b5eoUS5GtBE2JvWbizQ.1618265294308.6887c0ca96f4c69ace184080bbb6df30&_x_zm_rhtaid=637&mc_cid=b44fe2c3dc&mc_eid=d68dd345f4)  
