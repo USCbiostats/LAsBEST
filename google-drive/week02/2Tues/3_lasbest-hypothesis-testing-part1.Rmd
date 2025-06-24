@@ -70,7 +70,7 @@ Sometimes we might use a boxplot to compare distributions.
 boxplot(y~smoke)
 ```
 
-Let's also create a dataset that doesn't have a difference in means. I'm going to do this by splitting the data into two random subsets of 100. I do this by shuffling ('permuting') the smoking values. 
+Let's also create a dataset that doesn't have a difference in means. I'm going to do this by splitting the data into two random subsets of 50. I do this by shuffling ('permuting') the smoking values. 
 
 ```{r permutex}
 rsmoke <- smoke[sample(n1+n2)]
