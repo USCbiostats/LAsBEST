@@ -1,0 +1,424 @@
+---
+title: "LA's BeST — Lab 1: Overfitting and the Train/Test Split"
+author: ""
+date: ""
+output:
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+---
+
+# Overview
+
+This lab demonstrates two related but distinct ideas from the lecture.
+
+**Issue 1 — Evaluation bias:** evaluating a model on the same data used to fit it gives an overly optimistic picture of how well it will generalize. This is true for *any* model, regardless of its complexity. A held-out test set is the remedy.
+
+**Issue 2 — Overfitting:** a model that is too complex will fit the noise in the training data, not just the underlying signal. This makes the train/test gap larger and more damaging — the model does not just get evaluated optimistically, it actually performs worse on new data.
+
+These are separate problems with separate solutions. Parts 2 and 3 illustrate Issue 1. Part 4 illustrates Issue 2.
+
+**By the end of this lab you will have:**
+
+1. Loaded the BodyFat data and explored its structure
+2. Split the data into training and test sets
+3. Fit a simple linear regression and seen that training performance overestimates test performance even for a well-specified model (Issue 1)
+4. Seen how the train/test gap widens as model complexity increases (Issue 2)
+5. Understood why both issues together motivate the need for a separate validation set
+
+You will run pre-written code chunks first to build up the tools you need. Then you will apply those tools yourself.
+
+**Understand what each piece of code does and why — don't move on until it makes sense. Focus on the results and what they mean, not on memorizing the R syntax.**
+
+---
+
+# Part 1: Setup (run as-is)
+
+## 1.1 Load the data
+
+```{r load-data}
+setwd('/Users/jpl/Library/CloudStorage/GoogleDrive-lewinger@usc.edu/My Drive/Teaching/Machine Learning/Datasets')
+
+bodyfat <- read.csv("bodyfat.csv")
+
+# Remove one erroneous entry with BodyFat = 0
+bodyfat <- bodyfat[bodyfat$BodyFat > 0, ]
+
+# How many observations and variables do we have?
+dim(bodyfat)
+
+# What does the data look like?
+head(bodyfat)
+```
+
+**Variable names:** `BodyFat` is the outcome. The remaining columns are predictor variables — age, weight, height, and a series of body circumference measurements.
+
+---
+
+## 1.2 Helper functions
+
+These two functions compute the performance metrics we discussed in the lecture. Run this chunk now — you will use these functions throughout the lab.
+
+```{r helper-functions}
+# R-squared
+R2 <- function(observed, predicted) {
+  ss_res <- sum((observed - predicted)^2)
+  ss_tot <- sum((observed - mean(observed))^2)
+  1 - ss_res / ss_tot
+}
+
+# Root Mean Square Error
+RMSE <- function(observed, predicted) {
+  sqrt(mean((observed - predicted)^2))
+}
+```
+
+---
+
+## 1.3 Create the train/test split
+
+```{r split}
+set.seed(301)
+
+n <- nrow(bodyfat)
+trainset <- sample(1:n, size = floor(0.7 * n))
+
+bodyfat_train <- bodyfat[trainset, ]
+bodyfat_test  <- bodyfat[-trainset, ]
+
+cat("Training set size:", nrow(bodyfat_train), "\n")
+cat("Test set size:    ", nrow(bodyfat_test), "\n")
+```
+
+---
+
+## 1.4 Explore the training data
+
+```{r explore}
+par(mar = c(5, 5, 3, 1))
+hist(bodyfat_train$BodyFat,
+     col = "steelblue3", border = "white",
+     xlab = "Body fat (%)", main = "Distribution of body fat % (training set)",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.3)
+```
+
+
+> **Question 1.1:** What range of body fat % would you consider typical for this group? Are there any values that seem surprisingly high or low?
+
+
+<br>
+
+
+```{r explore2}
+par(mar = c(5, 6, 3, 1))
+plot(bodyfat_train$BodyFat ~ bodyfat_train$Abdomen,
+     pch = 16, cex = 1.3, col = "red4",
+     xlab = "Abdominal circumference (cm)", ylab = "Body fat (%)",
+     main = "Body fat vs. abdomen (training set)",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.3)
+```
+<br>
+
+> **Question 1.2:** If you drew a line through these points, would it fit perfectly? What does the scatter around the line tell you?
+
+
+> **Question 1.3:** Two men have the same abdominal circumference but very different body fat percentages. What might explain that?
+
+
+---
+
+# Part 2: Simple model — abdomen only (run as-is)
+
+**Issue 1 — Evaluation bias.** The model we fit here — body fat predicted from abdominal circumference alone — is a reasonable, well-specified model. It is not too complex. Yet you will see that its training performance still overstates how well it predicts new subjects. The train/test gap you observe here has nothing to do with overfitting; it is simply because least squares always minimizes error on the training data, making training performance an optimistic estimate by construction.
+
+## 2.1 Fit the model on training data
+
+```{r fit-simple}
+lm_simple <- lm(BodyFat ~ Abdomen, data = bodyfat_train)
+summary(lm_simple)
+```
+
+> **Note:** In a statistics course you would carefully examine the coefficients, p-values, and confidence intervals in the output above. In machine learning, we typically don't — our goal is prediction, not interpretation. The only number from `summary()` we care about here is the training $R^2$ (shown as "Multiple R-squared"). We will compute it more explicitly in the next chunk.
+
+
+## 2.2 Training performance
+
+```{r train-perf}
+pred_train_simple <- fitted(lm_simple)
+
+R2_train_simple   <- R2(bodyfat_train$BodyFat, pred_train_simple)
+RMSE_train_simple <- RMSE(bodyfat_train$BodyFat, pred_train_simple)
+
+cat("--- Simple model: TRAINING performance ---\n")
+cat("R-squared:", round(R2_train_simple, 3), "\n")
+cat("RMSE:     ", round(RMSE_train_simple, 2), "% body fat\n")
+```
+
+
+```{r plot-train-fit}
+par(mar = c(5, 6, 3, 1))
+plot(bodyfat_train$BodyFat ~ bodyfat_train$Abdomen,
+     pch = 16, cex = 1.3, col = "red4",
+     xlab = "Abdominal circumference (cm)", ylab = "Body fat (%)",
+     main = "Simple model fitted on training data",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.2,
+     xlim = c(65, 135), ylim = c(0, 50))
+abline(lm_simple, col = "steelblue3", lwd = 3)
+```
+
+## 2.3 Test performance
+
+```{r test-perf}
+pred_test_simple <- predict(lm_simple, newdata = bodyfat_test)
+
+R2_test_simple   <- R2(bodyfat_test$BodyFat, pred_test_simple)
+RMSE_test_simple <- RMSE(bodyfat_test$BodyFat, pred_test_simple)
+
+cat("--- Simple model: TEST performance ---\n")
+cat("R-squared:", round(R2_test_simple, 3), "\n")
+cat("RMSE:     ", round(RMSE_test_simple, 2), "% body fat\n")
+```
+
+```{r compare-simple}
+cat("=== Simple model: Train vs. Test ===\n")
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Train:", R2_train_simple, RMSE_train_simple))
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Test:",  R2_test_simple,  RMSE_test_simple))
+```
+
+
+> **Question 2.1:** Is the test $R^2$ higher or lower than the training $R^2$? Is the test RMSE higher or lower than the training RMSE? What does the difference tell you?
+
+
+
+```{r plot-test-fit}
+par(mar = c(5, 6, 3, 1))
+plot(bodyfat_test$BodyFat ~ bodyfat_test$Abdomen,
+     pch = 16, cex = 1.3, col = "red3",
+     xlab = "Abdominal circumference (cm)", ylab = "Body fat (%)",
+     main = "Simple model evaluated on test data",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.2,
+     xlim = c(65, 135), ylim = c(0, 50))
+abline(lm_simple, col = "steelblue3", lwd = 3)
+```
+
+```{r plot-pred-obs}
+par(mar = c(5, 6, 3, 1))
+plot(pred_test_simple ~ bodyfat_test$BodyFat,
+     pch = 16, cex = 1.3, col = "red3", asp = 1,
+     xlab = "Observed body fat (%)", ylab = "Predicted body fat (%)",
+     main = "Predicted vs. observed (test set)",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.2)
+abline(0, 1, col = "steelblue3", lwd = 3)
+```
+
+> **Question 2.2:** In the predicted vs. observed plot, what would a perfect model look like? How close are we?
+
+
+---
+
+# Part 3: A richer model — your turn
+
+## 3.1 Fit a model with multiple predictors
+
+```{r fit-multi}
+lm_multi <- lm(BodyFat ~ Abdomen + Age + Weight + Neck + Chest,
+               data = bodyfat_train)
+summary(lm_multi)
+```
+
+## 3.2 Evaluate the multi-predictor model
+
+```{r eval-multi}
+# Step 1: Get predictions on the training set
+pred_train_multi <- fitted(lm_multi)
+
+# Step 2: Get predictions on the test set
+pred_test_multi <- predict(lm_multi, newdata = _________)   # fill in
+
+# Step 3: Compute R2 and RMSE on the training set
+R2_train_multi   <- R2(_________, _________)   # fill in   
+RMSE_train_multi <- RMSE(_________, _________)   # fill in 
+
+# Step 4: Compute R2 and RMSE on the test set
+R2_test_multi   <- R2(_________, _________)   # fill in      
+RMSE_test_multi <- RMSE(_________, _________)   # fill in    
+
+cat("=== Multi-predictor model: Train vs. Test ===\n")
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Train:", R2_train_multi, RMSE_train_multi))
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Test:",  R2_test_multi,  RMSE_test_multi))
+```
+
+## 3.3 Compare both models
+
+```{r compare-models}
+cat("=== Model comparison: Test set performance ===\n")
+cat(sprintf("%-30s  R2 = %.3f   RMSE = %.2f%%\n", "Simple (abdomen only):",
+            R2_test_simple, RMSE_test_simple))  
+cat(sprintf("%-30s  R2 = %.3f   RMSE = %.2f%%\n", "Multi (5 predictors):",
+            R2_test_multi, RMSE_test_multi))     
+```
+
+
+> **Question 3.1:** Which model performs better on the *test* set? Which performs better on the *training* set? Are they the same?
+
+
+> **Question 3.2:** The multi-predictor model has a higher training $R^2$ than the simple model. Does that automatically mean it will predict better on new subjects? What does the test set tell us?
+
+
+---
+
+# Part 4: Overfitting — complexity vs. performance
+
+**Issue 2 — Overfitting.** In Parts 2 and 3 you saw a train/test gap even for reasonable models — that is evaluation bias. Now we look at what happens when we keep adding predictors beyond what is useful. The train/test gap does not just persist — it *widens*, because the model starts fitting noise specific to the training data and performs worse on new subjects as a result. This is overfitting: a distinct problem on top of evaluation bias, with complexity as the culprit.
+
+## 4.1 Building up complexity (run as-is)
+
+We build model complexity in two phases:
+
+- **Phase 1 (steps 1–13):** add the 13 real predictors one at a time, starting with abdomen
+- **Phase 2 (steps 14 onward):** add squared terms (abdomen², age², ...), then the first two cubic terms
+
+The squared and cubic terms let the model fit curved, non-linear relationships — but also give it enough flexibility to start fitting noise.
+
+> **Note:** We are showing test $R^2$ here purely to see what overfitting looks like — to understand it visually. In a real analysis you would never use the test set to compare or select among models. Question 4.2 asks you to think about exactly that.
+
+```{r complexity-curve}
+cont_vars <- c("Abdomen", "Age", "Weight", "Height", "Neck", "Chest",
+               "Hip", "Thigh", "Knee", "Ankle", "Biceps", "Forearm", "Wrist")
+
+# Phase 1: linear terms
+phase1 <- cont_vars
+
+# Phase 2: squared terms, then first 2 cubic terms
+phase2 <- c(paste0("I(", cont_vars, "^2)"),
+            paste0("I(", cont_vars[1:2], "^3)"))   # Abdomen^3, Age^3
+
+all_terms <- c(phase1, phase2)
+n_linear  <- length(phase1)          # 13 — boundary between phases
+
+R2_train_curve <- numeric(length(all_terms))
+R2_test_curve  <- numeric(length(all_terms))
+
+for (k in seq_along(all_terms)) {
+  formula_k <- as.formula(
+    paste("BodyFat ~", paste(all_terms[1:k], collapse = " + "))
+  )
+  fit_k <- lm(formula_k, data = bodyfat_train)
+  R2_train_curve[k] <- R2(bodyfat_train$BodyFat, fitted(fit_k))
+  R2_test_curve[k]  <- R2(bodyfat_test$BodyFat,  predict(fit_k, newdata = bodyfat_test))
+}
+```
+
+```{r plot-complexity}
+n_steps <- length(all_terms)
+
+par(mar = c(5, 6, 4, 1))
+plot(1:n_steps, R2_train_curve,
+     type = "l", lwd = 2.5, col = "steelblue3",
+     xlab = "Model complexity (terms added)", ylab = expression(R^2),
+     main = "Train vs. Test R² as model complexity increases",
+     cex.lab = 1.3, cex.axis = 1.2, cex.main = 1.2,
+     ylim = c(min(R2_test_curve) - 0.05, 1.0), xaxt = "n")
+axis(1, at = 1:n_steps, labels = 1:n_steps, cex.axis = 0.9)
+lines(1:n_steps, R2_test_curve, lwd = 2.5, col = "red4")
+
+# Phase boundary
+abline(v = n_linear + 0.5, col = "gray50", lty = 2, lwd = 1.5)
+
+# R² = 0 reference line
+abline(h = 0, col = "gray70", lty = 3, lwd = 1.5)
+
+# Phase labels
+mtext("Linear terms", side = 3, at = n_linear / 2,        cex = 0.9, col = "gray40")
+mtext("Polynomial terms", side = 3, at = n_linear + (n_steps - n_linear) / 2,
+      cex = 0.9, col = "gray40")
+
+legend("topright",
+       legend = c("Training R²", "Test R²"),
+       col = c("steelblue3", "red4"), lwd = 2.5, cex = 1.1)
+```
+
+> **Question 4.1:** Does training $R^2$ ever decrease as you add more predictors or polynomial terms?
+
+> **Question 4.2:** Describe what happens to test $R^2$ across the two phases. What does a negative test $R^2$ mean in practice?
+
+> **Question 4.3:** We used the test set to draw this plot. Why does that mean we could not validly use this plot to select the best model and then report its test $R^2$ as our performance estimate?
+
+
+---
+
+# Part 5: Your own model — your turn
+
+## 5.1 Fit your own model
+
+```{r show-vars}
+names(bodyfat)
+```
+
+```{r your-model}
+# Replace the ... with your chosen predictors
+lm_yours <- lm(BodyFat ~ ..., data = bodyfat_train)
+
+summary(lm_yours)
+```
+
+
+## 5.2 Evaluate your model on the test set
+
+```{r eval-your-model}
+pred_train_yours <- fitted(lm_yours)
+pred_test_yours  <- predict(lm_yours, newdata = bodyfat_test)
+
+R2_train_yours   <- R2(bodyfat_train$BodyFat, pred_train_yours)
+RMSE_train_yours <- RMSE(bodyfat_train$BodyFat, pred_train_yours)
+
+R2_test_yours   <- R2(bodyfat_test$BodyFat, pred_test_yours)
+RMSE_test_yours <- RMSE(bodyfat_test$BodyFat, pred_test_yours)
+
+cat("=== Your model: Train vs. Test ===\n")
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Train:", R2_train_yours, RMSE_train_yours))
+cat(sprintf("%-10s  R2 = %.3f   RMSE = %.2f%%\n", "Test:",  R2_test_yours,  RMSE_test_yours))
+```
+
+## 5.3 Final comparison
+
+```{r final-comparison}
+cat("=== Final comparison: Test set R² ===\n")
+cat(sprintf("  Simple model (abdomen only):  R2 = %.3f\n", R2_test_simple))
+cat(sprintf("  Multi model (5 predictors):   R2 = %.3f\n", R2_test_multi))
+cat(sprintf("  Your model:                   R2 = %.3f\n", R2_test_yours))
+```
+
+> **Question 5.1:** How does your model compare on the test set? Did adding your chosen predictors help?
+
+
+> **Question 5.2:** Suppose you tried 5 different combinations of predictors, picked the one with the best test $R^2$, and reported that as your model's performance. What would be the right way to proceed instead?
+
+
+---
+
+# Summary
+
+In this lab you have seen two distinct ideas:
+
+**Issue 1 — Evaluation bias (Parts 2–3):**
+
+- Training performance always overestimates how well a model will generalize — for *any* model, not just complex ones
+- A held-out test set is the only way to get an honest estimate of generalization performance
+- The test set must be treated as **sacred**: looked at once, after all modeling decisions are made
+
+**Issue 2 — Overfitting (Part 4):**
+
+- Adding complexity always improves training $R^2$, but test $R^2$ eventually peaks and declines
+- Beyond a certain point, a more complex model does not just get evaluated optimistically — it actually predicts new subjects *worse*
+- Controlling complexity is a separate problem from honest evaluation, and requires a separate solution: a validation set (or cross-validation)
+
+Both issues together are why we need the train / validation / test framework introduced at the end of the lecture — and why cross-validation, decision trees, and random forests are the natural next steps in Lecture 2.
